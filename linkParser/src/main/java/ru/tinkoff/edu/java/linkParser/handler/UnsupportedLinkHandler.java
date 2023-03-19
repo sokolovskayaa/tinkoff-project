@@ -1,7 +1,7 @@
-package handler;
+package ru.tinkoff.edu.java.linkParser.handler;
 
-import link.ParsedLink;
-import link.UnsupportedParsedLink;
+import ru.tinkoff.edu.java.linkParser.link.UnsupportedParsedLink;
+import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 
 public final class UnsupportedLinkHandler extends AbstractLinkHandler {
     public UnsupportedLinkHandler(AbstractLinkHandler handler) {

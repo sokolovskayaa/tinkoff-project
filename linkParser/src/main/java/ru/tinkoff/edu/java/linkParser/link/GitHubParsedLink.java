@@ -1,4 +1,4 @@
-package link;
+package ru.tinkoff.edu.java.linkParser.link;
 
 public record GitHubParsedLink(String id, String repo) implements ParsedLink{
     @Override

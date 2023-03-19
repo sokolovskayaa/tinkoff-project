@@ -1,18 +1,18 @@
-package handler;
+package ru.tinkoff.edu.java.linkParser.handler;
 
-import link.ParsedLink;
-import link.StackOverflowParsedLink;
+import ru.tinkoff.edu.java.linkParser.link.StackOverflowParsedLink;
+import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class StackOverflowHandler extends AbstractLinkHandler {
 
+    private static final Pattern STACKOVERFLOW_PATTERN = Pattern.compile("https://stackoverflow.com/questions/(\\d+)");
+
     public StackOverflowHandler(AbstractLinkHandler handler) {
         super(handler);
     }
-
-    private static final Pattern STACKOVERFLOW_PATTERN = Pattern.compile("https://stackoverflow.com/questions/(\\d+)");
 
     @Override
     public ParsedLink parseLink(String url) {
