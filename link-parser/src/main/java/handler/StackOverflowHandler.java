@@ -12,16 +12,12 @@ public final class StackOverflowHandler extends AbstractLinkHandler {
         super(handler);
     }
 
-    private final Pattern STACKOVERFLOW_PATTERN = Pattern.compile("https://stackoverflow.com/questions/(\\d+)");
+    private static final Pattern STACKOVERFLOW_PATTERN = Pattern.compile("https://stackoverflow.com/questions/(\\d+)");
 
     @Override
     public ParsedLink parseLink(String url) {
         Matcher matcher = STACKOVERFLOW_PATTERN.matcher(url);
-        if (matcher.matches()) {
-            return new StackOverflowParsedLink(matcher.group(1));
-        } else {
-            return nextLinkHandler.parseLink(url);
-        }
+        return (matcher.matches() ? new StackOverflowParsedLink(matcher.group(1)) : nextLinkHandler.parseLink(url));
     }
 
 }

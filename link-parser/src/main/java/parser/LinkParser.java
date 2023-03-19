@@ -6,9 +6,10 @@ import link.ParsedLink;
 
 public class LinkParser {
     public HandlerBuilder builder = new HandlerBuilder();
+    LinkHandler linkHandler = builder.getChainOfHandlers();
+
 
     public ParsedLink parseLink(String url) {
-        LinkHandler linkHandler = builder.getChainOfHandlers();
         return linkHandler.parseLink(url);
     }
 }
