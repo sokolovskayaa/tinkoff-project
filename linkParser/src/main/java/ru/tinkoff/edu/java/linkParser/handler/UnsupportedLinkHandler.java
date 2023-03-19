@@ -4,7 +4,7 @@ import ru.tinkoff.edu.java.linkParser.link.UnsupportedParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 
 public final class UnsupportedLinkHandler extends AbstractLinkHandler {
-    public UnsupportedLinkHandler(AbstractLinkHandler handler) {
+    public UnsupportedLinkHandler(LinkHandler handler) {
         super(handler);
     }
 
