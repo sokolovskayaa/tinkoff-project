@@ -1,1 +1,9 @@
-app.test:1
+app:
+  test: 1
+  scheduler:
+    interval: 1000
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
