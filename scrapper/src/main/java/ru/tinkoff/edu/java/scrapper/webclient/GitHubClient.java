@@ -1,15 +1,14 @@
 package ru.tinkoff.edu.java.scrapper.webclient;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import ru.tinkoff.edu.java.scrapper.dto.GitHubRepositoryResponse;
+import ru.tinkoff.edu.java.scrapper.dto.response.GitHubRepositoryResponse;
 
 public class GitHubClient {
 
     private final WebClient webClient;
     
-    private final String baseUrl = "https://api.github.com/";
+    private final static String baseUrl = "https://api.github.com/";
 
     public GitHubClient() {
         webClient = WebClient.create(baseUrl);

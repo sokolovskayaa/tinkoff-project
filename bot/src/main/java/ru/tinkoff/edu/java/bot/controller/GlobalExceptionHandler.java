@@ -15,11 +15,13 @@ import java.util.Arrays;
 )
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private static final Integer HUI = 400;
+
     @ExceptionHandler(value = {Exception.class})
     protected ResponseEntity<ApiErrorResponse> handleIllegalArgumentException(Exception ex) {
         logger.error("Exception", ex);
         ApiErrorResponse e = new ApiErrorResponse("Некорректные параметры запроса",
-                "400", ex.toString(), ex.getMessage(), Arrays.stream(ex.getStackTrace()).map(StackTraceElement::toString).toList());
-        return ResponseEntity.status(400).body(e);
+                HttpStatus.BAD_REQUEST.toString(), ex.toString(), ex.getMessage(), Arrays.stream(ex.getStackTrace()).map(StackTraceElement::toString).toList());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
     }
 }

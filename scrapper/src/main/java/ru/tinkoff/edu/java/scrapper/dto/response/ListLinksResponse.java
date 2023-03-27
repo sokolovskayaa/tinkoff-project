@@ -1,9 +1,9 @@
-package ru.tinkoff.edu.java.scrapper.dto;
+package ru.tinkoff.edu.java.scrapper.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import ru.tinkoff.edu.java.scrapper.dto.response.LinkResponse;
 
 import java.util.List;
 
