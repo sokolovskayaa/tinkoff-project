@@ -1,1 +1,7 @@
-app.test:1
+app.test: 1
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
