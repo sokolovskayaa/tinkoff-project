@@ -8,10 +8,10 @@ public class GitHubClient {
 
     private final WebClient webClient;
     
-    private final static String baseUrl = "https://api.github.com/";
+    private final static String BASE_URL = "https://api.github.com/";
 
     public GitHubClient() {
-        webClient = WebClient.create(baseUrl);
+        webClient = WebClient.create(BASE_URL);
     }
 
     public GitHubClient(String url) {

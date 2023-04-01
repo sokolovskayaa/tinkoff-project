@@ -15,8 +15,6 @@ import java.util.Arrays;
 )
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static final Integer HUI = 400;
-
     @ExceptionHandler(value = {Exception.class})
     protected ResponseEntity<ApiErrorResponse> handleIllegalArgumentException(Exception ex) {
         logger.error("Exception", ex);

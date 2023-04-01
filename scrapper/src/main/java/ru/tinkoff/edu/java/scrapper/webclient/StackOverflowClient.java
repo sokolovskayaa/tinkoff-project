@@ -6,11 +6,11 @@ import ru.tinkoff.edu.java.scrapper.dto.response.GitHubRepositoryResponse;
 import ru.tinkoff.edu.java.scrapper.dto.response.StackOverflowQuestionResponse;
 
 public class StackOverflowClient {
+    private final static String BASE_URL = "https://api.stackexchange.com/";
     private final WebClient webClient;
-    private final static String baseUrl = "https://api.stackexchange.com/";
 
     public StackOverflowClient() {
-        webClient = WebClient.create(baseUrl);
+        webClient = WebClient.create(BASE_URL);
     }
 
     public StackOverflowClient(String url) {
