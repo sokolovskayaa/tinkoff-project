@@ -14,8 +14,8 @@ public enum Command {
     TRACK("/track", "track link"),
     UNTRACK("/untrack", "untrack link"),
     UNSUPPORTED(null, "unsupported command");
-    public String command;
-    public String description;
+    public final String command;
+    public final String description;
 
     Command(String command, String description) {
         this.description = description;

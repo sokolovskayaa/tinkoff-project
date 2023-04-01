@@ -11,8 +11,7 @@ import static ru.tinkoff.edu.java.bot.enums.Command.TRACK;
 
 @Component
 public class TrackCommand implements Command{
-    private final static Pattern TRACK_OK = Pattern.compile("/track (\\w*)");
-    private final static Pattern TRACK_NOT_OK = Pattern.compile("/track");
+    private final static Pattern TRACK_REG = Pattern.compile(TRACK.command + " (\\w*)");
 
     @Override
     public String command() {
@@ -33,10 +32,7 @@ public class TrackCommand implements Command{
     @Override
     public boolean supports(Update update) {
         String messageText = update.message().text();
-        Matcher matcherOK = TRACK_OK.matcher(messageText);
-        Matcher matcherNotOK = TRACK_NOT_OK.matcher(messageText);
-//        if()
-
-        return matcherOK.matches();
+        Matcher matcher = TRACK_REG.matcher(messageText); // тут надо будет проверять на валидность ссылки
+        return matcher.matches();
     }
 }

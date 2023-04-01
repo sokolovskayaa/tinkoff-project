@@ -32,7 +32,7 @@ public class UntrackCommand implements Command {
     @Override
     public boolean supports(Update update) {
         String messageText = update.message().text();
-        Matcher matcher = UNTRACK_REG.matcher(messageText);
+        Matcher matcher = UNTRACK_REG.matcher(messageText); // тут надо будет проверять на валидность ссылки
         return matcher.matches();
     }
 }

@@ -16,10 +16,10 @@ public class StackOverflowClient {
         webClient = WebClient.create(url);
     }
 
-    public Mono<StackOverflowQuestionResponse> getRepo(Integer id) {
+    public StackOverflowQuestionResponse getRepo(Integer id) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                .path("questions/{id}").build(id))
-                .retrieve().bodyToMono(StackOverflowQuestionResponse.class);
+                        .path("questions/{id}").build(id))
+                .retrieve().bodyToMono(StackOverflowQuestionResponse.class).block();
     }
 }
