@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.bot.client;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.bot.dto.request.AddLinkRequest;
 import ru.tinkoff.edu.java.bot.dto.response.ListLinksResponse;
@@ -17,10 +18,11 @@ public class ScrapperClient {
         webClient = WebClient.create(baseUrl);
     }
 
-    public boolean addChat(long id) { // тут должен быть бул?
+    public boolean addChat(long id) {
         webClient.post()
                 .uri(uriBuilder -> uriBuilder.path("tg-chat/{id}")
-                        .build(id)).retrieve();
+                        .build(id))
+                .retrieve();
         return true;
     }
 
@@ -42,16 +44,16 @@ public class ScrapperClient {
         webClient.post()
                 .uri("/links")
                 .header("Tg-Chat-Id", id.toString())
-//                .body(AddLinkRequest.class,) тут боди надо нормально вставить
+                .bodyValue(request)
                 .retrieve();
         return true;
     }
 
     public boolean deleteLink(Long id, AddLinkRequest request) {
-        webClient.delete()
+        webClient.method(HttpMethod.DELETE)
                 .uri("/links")
                 .header("Tg-Chat-Id", id.toString())
-//                .body(AddLinkRequest.class,) тут боди надо нормально вставить
+                .bodyValue(request)
                 .retrieve();
         return true;
     }

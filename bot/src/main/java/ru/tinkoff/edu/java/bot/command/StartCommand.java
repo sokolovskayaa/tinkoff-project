@@ -4,7 +4,6 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import org.springframework.stereotype.Component;
 
-import static ru.tinkoff.edu.java.bot.enums.Command.EMPTY_LIST;
 import static ru.tinkoff.edu.java.bot.enums.Command.START;
 
 @Component

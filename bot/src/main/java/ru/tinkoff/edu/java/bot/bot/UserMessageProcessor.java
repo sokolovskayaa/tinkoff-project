@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Component
 public class UserMessageProcessor {
-    private final List<? extends Command> commands;
+    private final List<Command> commands;
     public SendMessage process(Update update){
         for(var command : commands) {
             if(command.supports(update)) {
@@ -20,4 +20,8 @@ public class UserMessageProcessor {
         }
         return null;
     };
+
+    public List<Command> getCommands() {
+        return commands;
+    }
 }
