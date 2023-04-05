@@ -1,7 +1,6 @@
 package ru.tinkoff.edu.java.linkParser.parser;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -44,17 +43,14 @@ public class LinkParserTest {
 
     @ParameterizedTest
     @MethodSource("unsupportedLinks")
-    public void testUnsupportedLinks() {
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(parser.parseLink("https://www.youtube.com/watch?v=rpCi1h4kWO8"), new UnsupportedParsedLink(null)),
-                () -> Assertions.assertEquals(parser.parseLink("https://stackoverflow.com/users/5734961/dimava"), new UnsupportedParsedLink(null)),
-                () -> Assertions.assertEquals(parser.parseLink("https://gist.github.com/sanyarnd/52a78a01fa9ec234c8ad50fbc5ecc9e4"), new UnsupportedParsedLink(null))
-        );
+    public void testUnsupportedLinks(String link, String nullStr) {
+        Assertions.assertEquals(parser.parseLink(link), new UnsupportedParsedLink(nullStr));
     }
+
     private static Stream<Arguments> unsupportedLinks() {
         return Stream.of(
                 Arguments.of("https://www.youtube.com/watch?v=rpCi1h4kWO8", null),
-                Arguments.of("https://stackoverflow.com/users/5734961/dimava",  null),
+                Arguments.of("https://stackoverflow.com/users/5734961/dimava", null),
                 Arguments.of("https://gist.github.com/sanyarnd/52a78a01fa9ec234c8ad50fbc5ecc9e4", null)
         );
     }
