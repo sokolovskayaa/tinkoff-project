@@ -8,6 +8,8 @@ import ru.tinkoff.edu.java.bot.dto.response.ListLinksResponse;
 public class ScrapperClient {
 
     private final static String BASE_URL = "http://localhost:8080/";
+    private final static String LINK_URL = "/links";
+    private final static String CHAT_URL = "tg-chat/{id}";
     private final WebClient webClient;
 
     private ScrapperClient() {
@@ -20,7 +22,7 @@ public class ScrapperClient {
 
     public boolean addChat(long id) {
         webClient.post()
-                .uri(uriBuilder -> uriBuilder.path("tg-chat/{id}")
+                .uri(uriBuilder -> uriBuilder.path(CHAT_URL)
                         .build(id))
                 .retrieve();
         return true;
@@ -28,7 +30,7 @@ public class ScrapperClient {
 
     public boolean deleteChat(long id) {
         webClient.delete()
-                .uri(uriBuilder -> uriBuilder.path("tg-chat/{id}")
+                .uri(uriBuilder -> uriBuilder.path(CHAT_URL)
                         .build(id)).retrieve();
         return true;
     }
@@ -42,7 +44,7 @@ public class ScrapperClient {
 
     public boolean addLink(Long id, AddLinkRequest request) {
         webClient.post()
-                .uri("/links")
+                .uri(LINK_URL)
                 .header("Tg-Chat-Id", id.toString())
                 .bodyValue(request)
                 .retrieve();
@@ -51,7 +53,7 @@ public class ScrapperClient {
 
     public boolean deleteLink(Long id, AddLinkRequest request) {
         webClient.method(HttpMethod.DELETE)
-                .uri("/links")
+                .uri(LINK_URL)
                 .header("Tg-Chat-Id", id.toString())
                 .bodyValue(request)
                 .retrieve();
