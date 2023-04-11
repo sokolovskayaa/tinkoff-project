@@ -1,6 +1,14 @@
+import liquibase.Contexts;
+import liquibase.LabelExpression;
 import liquibase.Liquibase;
+import liquibase.database.Database;
+import liquibase.database.DatabaseFactory;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.exception.DatabaseException;
+import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import liquibase.resource.DirectoryResourceAccessor;
+import liquibase.resource.ResourceAccessor;
 import org.junit.ClassRule;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,27 +19,29 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 @SpringBootTest
 public abstract class IntegrationEnvironment {
-    @ClassRule
+
     public static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer("postgres:14")
             .withDatabaseName("scrapper")
             .withUsername("postgres")
             .withPassword("password");
 
-    @DynamicPropertySource
-    static void neo4jProperties(DynamicPropertyRegistry registry) {
-        postgres.start();
-        registry.add("spring.datasource.url", postgres::getJdbcUrl);
-        registry.add("spring.datasource.username", postgres::getUsername);
-        registry.add("spring.datasource.password", postgres::getPassword);
-        registry.add("spring.datasource.driver-class-name", postgres::getDriverClassName);
-    }
+    static {
+        try {
+            postgres.start();
+            Connection connection = DriverManager.getConnection(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword());
+            Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
-//    @BeforeAll
-//    public static void startContainer() {
-//        testContainer.start();
-////        Liquibase liquibase = new liquibase.Liquibase("scrapper/migrations/master.xml", new ClassLoaderResourceAccessor("scrapper/migrations/master.xml"), testContainer);
-//    }
+            Liquibase liquibase = new liquibase.Liquibase("master.xml", new DirectoryResourceAccessor(new File("migrations").toPath().toAbsolutePath()), database);
+            liquibase.update(new Contexts(), new LabelExpression());
+        } catch (Exception ignored) {
+
+        }
+    }
 }
