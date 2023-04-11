@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:14
+    container_name: shop-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=scrapper
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+
+  liquibase-migrations:
+    image: liquibase/liquibase:4.18
+    depends_on:
+      - postgresql
+    command:
+      - --hub-mode=off
+      - --changelog-file=master.xml
+      - --driver=org.postgresql.Driver
+      - --url=jdbc:postgresql://postgresql:5432/scrapper
+      - --username=...
+      - --password=...
+      - update
+    volumes:
+      - ./migrations:/liquibase/changelog
+    networks:
+      - backend
+
+networks:
+  backend:
+
+
+
