@@ -6,9 +6,9 @@ import ru.tinkoff.edu.java.scrapper.dto.response.GitHubRepositoryResponse;
 
 public class GitHubClient {
 
-    private final WebClient webClient;
-    
     private final static String BASE_URL = "https://api.github.com/";
+    private final WebClient webClient;
+
 
     public GitHubClient() {
         webClient = WebClient.create(BASE_URL);
@@ -18,10 +18,10 @@ public class GitHubClient {
         webClient = WebClient.create(url);
     }
 
-    public Mono<GitHubRepositoryResponse> getRepo(String owner, String repo) {
+    public GitHubRepositoryResponse getRepo(String owner, String repo) {
         return webClient.get()
-                        .uri(uriBuilder -> uriBuilder
+                .uri(uriBuilder -> uriBuilder
                         .path("repos/{owner}/{repo}").build(owner, repo))
-                        .retrieve().bodyToMono(GitHubRepositoryResponse.class);
+                .retrieve().bodyToMono(GitHubRepositoryResponse.class).block();
     }
 }

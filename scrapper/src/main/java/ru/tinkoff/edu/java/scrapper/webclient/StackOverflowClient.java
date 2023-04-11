@@ -2,7 +2,6 @@ package ru.tinkoff.edu.java.scrapper.webclient;
 
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import ru.tinkoff.edu.java.scrapper.dto.response.GitHubRepositoryResponse;
 import ru.tinkoff.edu.java.scrapper.dto.response.StackOverflowQuestionResponse;
 
 public class StackOverflowClient {
@@ -17,10 +16,10 @@ public class StackOverflowClient {
         webClient = WebClient.create(url);
     }
 
-    public Mono<StackOverflowQuestionResponse> getRepo(Integer id) {
+    public StackOverflowQuestionResponse getRepo(Integer id) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                .path("questions/{id}").build(id))
-                .retrieve().bodyToMono(StackOverflowQuestionResponse.class);
+                        .path("questions/{id}").build(id))
+                .retrieve().bodyToMono(StackOverflowQuestionResponse.class).block();
     }
 }

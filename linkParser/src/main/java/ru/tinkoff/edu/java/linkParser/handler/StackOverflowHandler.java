@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public final class StackOverflowHandler extends AbstractLinkHandler {
 
-    private static final Pattern STACKOVERFLOW_PATTERN = Pattern.compile("https://stackoverflow.com/questions/(\\d+)");
+    private static final Pattern STACKOVERFLOW_PATTERN = Pattern.compile("https://stackoverflow.com/questions/(\\d+)(.*)");
 
     public StackOverflowHandler(LinkHandler handler) {
         super(handler);
