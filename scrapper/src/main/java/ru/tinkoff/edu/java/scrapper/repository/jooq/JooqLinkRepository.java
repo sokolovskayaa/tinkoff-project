@@ -5,9 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.tinkoff.edu.java.scrapper.dto.repository.ChatLink;
+import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.pojos.ChatLink;
 import ru.tinkoff.edu.java.scrapper.dto.repository.Link;
-
 
 import java.util.List;
 
@@ -40,7 +39,8 @@ public class JooqLinkRepository {
 
     public boolean exists(long chatId, String url) {
         return !dslContext.select().from(CHAT_LINK, LINK)
-                .where(LINK.URL.eq(url).and(LINK.ID.eq(CHAT_LINK.LINK_ID).and(CHAT_LINK.CHAT_ID.eq(chatId)))).fetchInto(ChatLink.class)
+                .where(LINK.URL.eq(url).and(LINK.ID.eq(CHAT_LINK.LINK_ID).and(CHAT_LINK.CHAT_ID.eq(chatId))))
+                .fetchInto(ChatLink.class)
                 .isEmpty();
     }
 
