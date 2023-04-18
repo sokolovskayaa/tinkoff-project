@@ -1,3 +1,5 @@
+package ru.tinkoff.edu.java.scrapper;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -10,15 +12,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 @SpringBootTest
-public class EnvironmentTest extends IntegrationEnvironment{
-    private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/scrapper";
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "password";
+public class EnvironmentTest extends IntegrationEnvironment {
 
     @Test
     public void loadContext() throws SQLException {
-        Assertions.assertTrue(postgres.isRunning());
-        Connection connection = DriverManager.getConnection(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword());
+        Assertions.assertTrue(IntegrationEnvironment.postgres.isRunning());
+        Connection connection = DriverManager.getConnection(IntegrationEnvironment.postgres.getJdbcUrl(), IntegrationEnvironment.postgres.getUsername(), IntegrationEnvironment.postgres.getPassword());
         DatabaseMetaData data = connection.getMetaData();
         Assertions.assertTrue(data.getTables(null, null, "chat", null).next());
         Assertions.assertTrue(data.getTables(null, null, "chat_link", null).next());

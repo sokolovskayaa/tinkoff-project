@@ -48,4 +48,22 @@ public class BotTest {
                 () -> Assertions.assertEquals(new UnsupportedCommand().handle(update).getParameters().get("text"), "unsupported command")
         );
     }
+
+    @Test
+    public void TrackCommandTest() {
+        Update update = new Update();
+        Message message = new Message();
+        Chat chat = new Chat();
+        ReflectionTestUtils.setField(chat, "id", 1L);
+        ReflectionTestUtils.setField(message, "chat", chat);
+        ReflectionTestUtils.setField(message, "text", "/track https://github.com/sokolovskayaa/tinkoff-project");
+        ReflectionTestUtils.setField(update, "message", message);
+        Assertions.assertAll(
+                () -> Assertions.assertFalse(new ListCommand().supports(update)),
+                () -> Assertions.assertFalse(new HelpCommand().supports(update)),
+                () -> Assertions.assertFalse(new StartCommand().supports(update)),
+                () -> Assertions.assertTrue(new TrackCommand().supports(update)),
+                () -> Assertions.assertFalse(new UntrackCommand().supports(update))
+        );
+    }
 }

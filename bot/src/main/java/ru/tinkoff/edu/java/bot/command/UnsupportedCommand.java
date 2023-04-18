@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(Ordered.LOWEST_PRECEDENCE)
 @Slf4j
-public class UnsupportedCommand implements Command {
+public class UnsupportedCommand extends Command {
     private static final String UNSUPPORTED_COMMAND = "unsupported command";
 
     @Override

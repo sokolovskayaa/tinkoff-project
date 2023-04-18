@@ -1,31 +1,38 @@
+package ru.tinkoff.edu.java.scrapper;
+
 import liquibase.Contexts;
 import liquibase.LabelExpression;
 import liquibase.Liquibase;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
-import liquibase.exception.DatabaseException;
-import liquibase.exception.LiquibaseException;
-import liquibase.resource.ClassLoaderResourceAccessor;
 import liquibase.resource.DirectoryResourceAccessor;
-import liquibase.resource.ResourceAccessor;
-import org.junit.ClassRule;
-import org.junit.jupiter.api.BeforeAll;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
+import javax.sql.DataSource;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
-@SpringBootTest
 public abstract class IntegrationEnvironment {
+
+    @TestConfiguration
+    public static class IntegrationEnvironmentConfig {
+
+        @Bean("dataSourse")
+        public DataSource dataSource() {
+            return DataSourceBuilder.create()
+                    .url(postgres.getJdbcUrl())
+                    .username(postgres.getUsername())
+                    .password(postgres.getPassword())
+                    .build();
+        }
+    }
 
     public static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer("postgres:14")
             .withDatabaseName("scrapper")
