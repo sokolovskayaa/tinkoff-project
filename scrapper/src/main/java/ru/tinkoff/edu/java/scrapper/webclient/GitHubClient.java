@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.webclient;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.scrapper.dto.response.Commit;
 import ru.tinkoff.edu.java.scrapper.dto.response.GitHubRepositoryResponse;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
+@Component
 public class GitHubClient {
 
     private final static String BASE_URL = "https://api.github.com/";

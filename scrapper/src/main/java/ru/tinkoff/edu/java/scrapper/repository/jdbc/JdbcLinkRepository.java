@@ -34,14 +34,13 @@ public class JdbcLinkRepository {
         return jdbcTemplate.query(SELECT_LINKS_FROM_CHAT_QUERY, new BeanPropertyRowMapper<>(Link.class), chatId);
     }
 
-    public Link addChatLink(long chatId, Link link) {
+    public void addChatLink(long chatId, Link link) {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(INSERT_CHAT_LINK_QUERY);
             ps.setLong(1, chatId);
             ps.setInt(2, link.getId());
             return ps;
         });
-        return link;
     }
 
     public List<Link> getLinksFromLinkByUrl(String url) {

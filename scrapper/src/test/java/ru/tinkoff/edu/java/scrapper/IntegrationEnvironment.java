@@ -7,9 +7,11 @@ import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.DirectoryResourceAccessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -20,6 +22,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public abstract class IntegrationEnvironment {
+
+    @Autowired
+    ApplicationContext context;
 
     @TestConfiguration
     public static class IntegrationEnvironmentConfig {

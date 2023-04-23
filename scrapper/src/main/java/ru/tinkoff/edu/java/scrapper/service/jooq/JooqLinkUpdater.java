@@ -25,8 +25,8 @@ public class JooqLinkUpdater implements LinkUpdater {
 
     private final JooqLinkUpdateRepository linkUpdateRepository;
     private final LinkParser linkParser = new LinkParser();
-    private final GitHubClient gitHubClient = new GitHubClient();
-    private final StackOverflowClient stackOverflowClient = new StackOverflowClient();
+    private final GitHubClient gitHubClient;
+    private final StackOverflowClient stackOverflowClient;
     private final BotClient botClient;
 
 

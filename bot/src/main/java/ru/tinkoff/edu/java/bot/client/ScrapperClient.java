@@ -2,6 +2,7 @@ package ru.tinkoff.edu.java.bot.client;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.bot.dto.request.AddLinkRequest;
 import ru.tinkoff.edu.java.bot.dto.request.RemoveLinkRequest;
@@ -10,6 +11,7 @@ import ru.tinkoff.edu.java.bot.dto.response.ListLinksResponse;
 import java.time.Duration;
 
 @Slf4j
+@Component
 public class ScrapperClient {
 
     private final static String BASE_URL = "http://localhost:8080/";

@@ -13,7 +13,6 @@ public class BotService {
     private final Bot bot;
 
     public void updatelinks(LinkUpdateRequest request){
-        log.info("bot service up!!1");
         for(var chatId : request.tgChatIds()) {
             log.info("notify chat {} about link {}", chatId, request.url());
             bot.sendMessage(chatId, request.url());

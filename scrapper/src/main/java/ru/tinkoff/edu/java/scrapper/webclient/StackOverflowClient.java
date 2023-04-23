@@ -1,5 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.webclient;
 
+import jdk.jfr.Category;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.scrapper.dto.response.StackoverflowAnswers;
 import ru.tinkoff.edu.java.scrapper.dto.response.StackoverflowQuestion;
@@ -10,7 +12,7 @@ import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
+@Component
 public class StackOverflowClient {
     private final static String BASE_URL = "https://api.stackexchange.com/";
     private final WebClient webClient;
