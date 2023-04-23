@@ -18,14 +18,12 @@ public class JdbcChatService implements ChatService {
 
     @Override
     public void register(long chatId) {
-        if (!jdbcChatRepository.exist(chatId)) {
-            jdbcChatRepository.add(chatId);
-            log.info("add chat {}", chatId);
-        } else {
+        if (jdbcChatRepository.exist(chatId)) {
             log.info("chat {} exists", chatId);
             throw new ChatAlreadyExistsException();
         }
-
+        jdbcChatRepository.add(chatId);
+        log.info("add chat {}", chatId);
     }
 
     @Override
@@ -33,9 +31,8 @@ public class JdbcChatService implements ChatService {
         if (!jdbcChatRepository.exist(chatId)) {
             log.info("cant remove unregister user {}", chatId);
             throw new ChatNotFoundException();
-        } else {
-            log.info("delete chat {}", chatId);
-            jdbcChatRepository.remove(chatId);
         }
+        jdbcChatRepository.remove(chatId);
+        log.info("delete chat {}", chatId);
     }
 }

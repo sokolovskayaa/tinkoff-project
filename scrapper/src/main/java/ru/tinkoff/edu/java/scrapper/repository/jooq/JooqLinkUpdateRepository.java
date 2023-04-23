@@ -37,7 +37,6 @@ public class JooqLinkUpdateRepository {
     }
 
     public List<ChatLink> getChats(long linkId) {
-        log.info("link id {}", linkId);
         return dslContext.select()
                 .from(CHAT_LINK, LINK).where(CHAT_LINK.LINK_ID.eq(LINK.ID).and(LINK.ID.eq(linkId))).fetchInto(ChatLink.class);
     }

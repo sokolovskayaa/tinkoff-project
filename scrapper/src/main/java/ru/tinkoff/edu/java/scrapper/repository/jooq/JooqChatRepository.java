@@ -20,7 +20,6 @@ public class JooqChatRepository {
 
     public void add(long chatId) {
         dslContext.insertInto(CHAT).values(chatId).execute();
-        log.info("chat {chatId} shoud be addedd");
     }
 
     public void remove(long chatId) {

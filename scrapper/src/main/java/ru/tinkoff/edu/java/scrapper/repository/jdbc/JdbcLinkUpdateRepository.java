@@ -11,30 +11,29 @@ import ru.tinkoff.edu.java.scrapper.dto.repository.Link;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-import static java.time.OffsetTime.now;
-
 @Repository
 @Slf4j
 @RequiredArgsConstructor
 public class JdbcLinkUpdateRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private static final String SELECT_OLD_LINKS_QUERY = "select * from link where updated_at < ?";
+    private static final String UPDATE_LINK_QUERY = "update link set updated_at = now() where id = ?";
+    private static final String SELECT_CHATS_BY_LINK_QUERY = "select * from chat_link, link where chat_link.link_id = link.id and link.id = ?";
 
     public List<Link> getLinks() {
-        String sql = "select * from link where updated_at < ?"; // to check
         OffsetDateTime date = OffsetDateTime.now();
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Link.class),  date.minusMinutes(1));
+        return jdbcTemplate.query(SELECT_OLD_LINKS_QUERY,
+                new BeanPropertyRowMapper<>(Link.class),
+                date.minusMinutes(1));
     }
 
     public void updateLink(Link link) {
-        String sql = "update link set updated_at = now() where id = ?"; // to check
-        jdbcTemplate.update(sql, link.getId());
+        jdbcTemplate.update(UPDATE_LINK_QUERY, link.getId());
     }
 
     public List<ChatLink> getChats(int linkId) {
-        log.info("link id {}", linkId);
-        String sql = "select * from chat_link, link where chat_link.link_id = link.id and link.id = ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ChatLink.class), linkId); // тут насчет класса в роу маппере хз
+        return jdbcTemplate.query(SELECT_CHATS_BY_LINK_QUERY, new BeanPropertyRowMapper<>(ChatLink.class), linkId);
     }
 
 }

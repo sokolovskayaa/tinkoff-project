@@ -26,7 +26,6 @@ public class ScrapperClient {
     }
 
     public void addChat(long chatId) {
-        log.info("start sent add chat {} to scrapper", chatId);
         webClient.post()
                 .uri(uriBuilder -> uriBuilder.path(CHAT_URL)
                         .build(chatId))
@@ -35,7 +34,7 @@ public class ScrapperClient {
                 .timeout(Duration.ofMillis(10000))
                 .block();
 
-        log.info("sent add chat {} to scrapper", chatId);
+        log.info("add chat {}", chatId);
     }
 
     public void deleteChat(long chatId) {

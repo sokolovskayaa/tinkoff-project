@@ -44,7 +44,7 @@ public class TrackCommand extends Command {
     }
 
     private boolean validLink(String link) {
-        log.info("link hui? {}", link);
+        log.info("link {}", link);
         var parsedLink = linkParser.parseLink(link);
         return (parsedLink instanceof GitHubParsedLink) || (parsedLink instanceof StackOverflowParsedLink);
     }

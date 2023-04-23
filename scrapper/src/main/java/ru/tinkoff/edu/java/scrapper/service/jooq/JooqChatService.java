@@ -19,14 +19,12 @@ public class JooqChatService implements ChatService {
 
     @Override
     public void register(long chatId) {
-        if (!jooqChatRepository.exist(chatId)) {
-            jooqChatRepository.add(chatId);
-            log.info("add chat {}", chatId);
-        } else {
+        if (jooqChatRepository.exist(chatId)) {
             log.info("chat {} exists", chatId);
             throw new ChatAlreadyExistsException();
         }
-
+        jooqChatRepository.add(chatId);
+        log.info("add chat {}", chatId);
     }
 
     @Override
@@ -34,9 +32,8 @@ public class JooqChatService implements ChatService {
         if (!jooqChatRepository.exist(chatId)) {
             log.info("cant remove unregister user {}", chatId);
             throw new ChatNotFoundException();
-        } else {
-            log.info("delete chat {}", chatId);
-            jooqChatRepository.remove(chatId);
         }
+        jooqChatRepository.remove(chatId);
+        log.info("delete chat {}", chatId);
     }
 }

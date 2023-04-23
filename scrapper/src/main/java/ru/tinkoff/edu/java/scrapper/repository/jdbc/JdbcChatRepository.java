@@ -16,28 +16,28 @@ import java.util.List;
 public class JdbcChatRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private static final String INSERT_CHAT_QUERY = "INSERT INTO chat (id) VALUES (?)";
+    private static final String DELETE_CHAT_QUERY = "DELETE FROM chat WHERE id = ?";
+    private static final String FIND_ALL_CHATS_QUERY = "SELECT * FROM chat";
+    private static final String CHAT_EXISTS_QUERY = "select * from chat where id = ?";
 
     public void add(long chatId) {
-        String sql = "INSERT INTO chat (id) VALUES (?)";
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(INSERT_CHAT_QUERY);
             ps.setLong(1, chatId);
             return ps;
         });
-        log.info("chat {chatId} shoud be addedd");
     }
 
     public void remove(long chatId) {
-        String sql = "DELETE FROM chat WHERE id = ?";
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(DELETE_CHAT_QUERY);
             ps.setLong(1, chatId);
             return ps;
         });
     }
     public List<Chat> findAll() {
-        String sql = "SELECT * FROM chat";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+        return jdbcTemplate.query(FIND_ALL_CHATS_QUERY, (rs, rowNum) -> {
             Chat chat = new Chat();
             chat.setId(rs.getLong("id"));
             return chat;
@@ -45,7 +45,7 @@ public class JdbcChatRepository {
     }
 
     public boolean exist(long chatId) {
-        var chats = jdbcTemplate.query("select * from chat where id = ?", new BeanPropertyRowMapper<>(Chat.class), chatId);
+        var chats = jdbcTemplate.query(CHAT_EXISTS_QUERY, new BeanPropertyRowMapper<>(Chat.class), chatId);
         return !chats.isEmpty();
     }
 }
