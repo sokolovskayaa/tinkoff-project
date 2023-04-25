@@ -3,15 +3,15 @@ package ru.tinkoff.edu.java.scrapper.service.jooq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.UnsupportedParsedLink;
 import ru.tinkoff.edu.java.linkParser.parser.LinkParser;
-import ru.tinkoff.edu.java.scrapper.dto.repository.ChatLink;
-import ru.tinkoff.edu.java.scrapper.dto.repository.Link;
+import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.ChatLink;
+import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Link;
 import ru.tinkoff.edu.java.scrapper.exception.InvalidTrackLinkException;
 import ru.tinkoff.edu.java.scrapper.exception.InvalidUntrackLinkException;
 import ru.tinkoff.edu.java.scrapper.exception.LinkIsAlreadyTrackedException;
-import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqLinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
@@ -27,6 +27,7 @@ public class JooqLinkService implements LinkService {
     private final LinkParser linkParser = new LinkParser();
 
     @Override
+    @Transactional
     public void add(long chatId, URI url) {
         String linkUrl = url.toString();
         ParsedLink parsedLink = linkParser.parseLink(linkUrl);
@@ -47,6 +48,7 @@ public class JooqLinkService implements LinkService {
     }
 
     @Override
+    @Transactional
     public void remove(long chatId, URI url) {
         if (linkRepository.getChatLinksByUrlAndChatId(chatId, url.toString()).isEmpty()) {
             log.info("cant untrack untracked link {}", url);

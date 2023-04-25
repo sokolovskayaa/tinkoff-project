@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper.dto.repository;
+package ru.tinkoff.edu.java.scrapper.dto.repository.jdbc;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

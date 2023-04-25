@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import ru.tinkoff.edu.java.scrapper.dto.repository.Chat;
+import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Chat;
 
 import java.sql.PreparedStatement;
 import java.util.List;

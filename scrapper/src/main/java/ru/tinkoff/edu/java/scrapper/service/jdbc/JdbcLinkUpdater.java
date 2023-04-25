@@ -8,8 +8,8 @@ import ru.tinkoff.edu.java.linkParser.link.GitHubParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.StackOverflowParsedLink;
 import ru.tinkoff.edu.java.linkParser.parser.LinkParser;
-import ru.tinkoff.edu.java.scrapper.dto.repository.ChatLink;
-import ru.tinkoff.edu.java.scrapper.dto.repository.Link;
+import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.ChatLink;
+import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Link;
 import ru.tinkoff.edu.java.scrapper.dto.request.LinkUpdateRequest;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkUpdateRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkUpdater;
@@ -27,8 +27,8 @@ public class JdbcLinkUpdater implements LinkUpdater {
 
     private final JdbcLinkUpdateRepository linkUpdateRepository;
     private final LinkParser linkParser = new LinkParser();
-    private final GitHubClient gitHubClient = new GitHubClient();
-    private final StackOverflowClient stackOverflowClient = new StackOverflowClient();
+    private final GitHubClient gitHubClient;
+    private final StackOverflowClient stackOverflowClient;
     private final BotClient botClient;
 
 
@@ -61,6 +61,7 @@ public class JdbcLinkUpdater implements LinkUpdater {
                 log.info("new commit in repo {} ", link.getUrl());
                 linkUpdateRepository.updateLink(link);
                 notifyChats(link, String.format("New commit in repo %s", link.getUrl()));
+                return;
             }
             var repo =
                     gitHubClient.getRepo(((GitHubParsedLink) parsedLink).id(),
@@ -81,6 +82,7 @@ public class JdbcLinkUpdater implements LinkUpdater {
             log.info("Question {} has new answer", link.getUrl());
             linkUpdateRepository.updateLink(link);
             notifyChats(link, String.format("Question %s has new answer", ((StackOverflowParsedLink) parsedLink).id()));
+            return;
         }
         var questions = stackOverflowClient
                 .getQuestion(((StackOverflowParsedLink) parsedLink).id());

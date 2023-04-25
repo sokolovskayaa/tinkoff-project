@@ -8,7 +8,7 @@ import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.StackOverflowParsedLink;
 import ru.tinkoff.edu.java.linkParser.parser.LinkParser;
 import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.pojos.ChatLink;
-import ru.tinkoff.edu.java.scrapper.dto.repository.Link;
+import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Link;
 import ru.tinkoff.edu.java.scrapper.dto.request.LinkUpdateRequest;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqLinkUpdateRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkUpdater;

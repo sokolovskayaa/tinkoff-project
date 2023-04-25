@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import ru.tinkoff.edu.java.scrapper.dto.repository.ChatLink;
-import ru.tinkoff.edu.java.scrapper.dto.repository.Link;
+import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.ChatLink;
+import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Link;
 
 import java.time.OffsetDateTime;
 import java.util.List;

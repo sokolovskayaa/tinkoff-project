@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.exception.ChatAlreadyExistsException;
 import ru.tinkoff.edu.java.scrapper.exception.ChatNotFoundException;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcChatRepository;
@@ -19,6 +20,7 @@ public class JdbcChatService implements ChatService {
     private final JdbcChatRepository jdbcChatRepository;
 
     @Override
+    @Transactional
     public void register(long chatId) {
         if (jdbcChatRepository.exist(chatId)) {
             log.info("chat {} exists", chatId);
@@ -29,6 +31,7 @@ public class JdbcChatService implements ChatService {
     }
 
     @Override
+    @Transactional
     public void unregister(long chatId) {
         if (!jdbcChatRepository.exist(chatId)) {
             log.info("cant remove unregister user {}", chatId);

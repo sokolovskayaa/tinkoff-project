@@ -3,6 +3,7 @@ package ru.tinkoff.edu.java.scrapper.service.jooq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.exception.ChatAlreadyExistsException;
 import ru.tinkoff.edu.java.scrapper.exception.ChatNotFoundException;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqChatRepository;
@@ -18,6 +19,7 @@ public class JooqChatService implements ChatService {
     private final JooqChatRepository jooqChatRepository;
 
     @Override
+    @Transactional
     public void register(long chatId) {
         if (jooqChatRepository.exist(chatId)) {
             log.info("chat {} exists", chatId);
@@ -28,6 +30,7 @@ public class JooqChatService implements ChatService {
     }
 
     @Override
+    @Transactional
     public void unregister(long chatId) {
         if (!jooqChatRepository.exist(chatId)) {
             log.info("cant remove unregister user {}", chatId);
