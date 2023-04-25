@@ -29,6 +29,7 @@ public class Bot {
         initMenu();
         bot.setUpdatesListener(updates -> {
             for (var update : updates) {
+                log.info(update.message().text());
                 SendMessage s = processor.process(update);
                 bot.execute(s);
             }
@@ -39,6 +40,13 @@ public class Bot {
     public void initMenu() {
         bot.execute(new SetMyCommands(processor.getCommands().stream()
                 .map(Command::toApiCommand).toArray(BotCommand[]::new)));
+    }
+
+    public void sendMessage(long chatId, String url) {
+        log.info("notify chat {} about link {}", chatId, url);
+        String text = String.format("Your link %s has been updated",  url);
+        SendMessage request = new SendMessage(chatId, text);
+        bot.execute(request);
     }
 
 

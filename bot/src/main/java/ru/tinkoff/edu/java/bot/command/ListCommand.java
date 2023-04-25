@@ -2,15 +2,20 @@ package ru.tinkoff.edu.java.bot.command;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import ru.tinkoff.edu.java.bot.client.ScrapperClient;
+import ru.tinkoff.edu.java.bot.dto.response.ListLinksResponse;
 
 import static ru.tinkoff.edu.java.bot.enums.Command.LIST;
 
 @Component
 @Slf4j
-public class ListCommand implements Command {
+@RequiredArgsConstructor
+public class ListCommand extends Command {
     private static final String EMPTY_LIST = "no tracked links";
+    private final ScrapperClient scrapperClient;
     @Override
     public String command() {
         return LIST.command;
@@ -24,11 +29,14 @@ public class ListCommand implements Command {
     @Override
     public SendMessage handle(Update update) {
         Long chatId = update.message().chat().id();
-        if (false) {  // тут потом должен быть лист урлов, но пока их нет
-            return new SendMessage(chatId, description());
+        ListLinksResponse response = scrapperClient.getLinks(chatId);
+        log.info("show list {}", chatId);
+        if (response.links().isEmpty()) {
+            log.info(chatId + " " + EMPTY_LIST);
+            return new SendMessage(chatId, EMPTY_LIST);
         }
-        log.info(chatId + " " + EMPTY_LIST);
-        return new SendMessage(chatId, EMPTY_LIST);
+        return new SendMessage(chatId, response.toString());
+
     }
 
     @Override
