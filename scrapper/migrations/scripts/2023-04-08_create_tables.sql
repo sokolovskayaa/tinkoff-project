@@ -21,6 +21,6 @@ create table chat_link
     chat_id bigint,
     link_id bigint,
     primary key(chat_id, link_id),
-    FOREIGN KEY(chat_id) REFERENCES chat(id) ON delete cascade,
+    FOREIGN KEY(chat_id) REFERENCES chat(id),
     FOREIGN KEY(link_id) REFERENCES link(id)
 );

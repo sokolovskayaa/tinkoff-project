@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.pojos.Chat;
 
 import java.sql.PreparedStatement;
@@ -11,9 +12,9 @@ import java.util.List;
 
 import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT;
 
-@Repository
 @RequiredArgsConstructor
 @Slf4j
+@Repository
 public class JooqChatRepository {
 
     private final DSLContext dslContext;

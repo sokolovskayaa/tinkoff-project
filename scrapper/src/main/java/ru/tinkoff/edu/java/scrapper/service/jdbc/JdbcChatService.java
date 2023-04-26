@@ -11,10 +11,12 @@ import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.ChatService;
 
 
-@Service
+
 @RequiredArgsConstructor
 @Slf4j
-@Primary
+@Service
+//@Primary
+
 public class JdbcChatService implements ChatService {
 
     private final JdbcChatRepository jdbcChatRepository;

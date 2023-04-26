@@ -2,6 +2,7 @@ package ru.tinkoff.edu.java.scrapper.repository.jdbc;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,9 +13,11 @@ import java.sql.PreparedStatement;
 import java.util.List;
 
 
-@Repository
 @RequiredArgsConstructor
 @Slf4j
+@Repository
+//@Primary
+
 public class JdbcLinkRepository {
     private final JdbcTemplate jdbcTemplate;
     private static final String SELECT_LINKS_FROM_CHAT_QUERY = "SELECT id, url, updated_at FROM link join chat_link on chat_link.link_id = link.id where chat_link.chat_id = ?";

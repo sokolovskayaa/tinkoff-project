@@ -3,6 +3,7 @@ package ru.tinkoff.edu.java.scrapper.service.jdbc;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.linkParser.link.GitHubParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
@@ -19,10 +20,11 @@ import ru.tinkoff.edu.java.scrapper.webclient.StackOverflowClient;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 @Slf4j
-@Primary
+@Service
+//@Primary
+
 public class JdbcLinkUpdater implements LinkUpdater {
 
     private final JdbcLinkUpdateRepository linkUpdateRepository;
@@ -30,7 +32,6 @@ public class JdbcLinkUpdater implements LinkUpdater {
     private final GitHubClient gitHubClient;
     private final StackOverflowClient stackOverflowClient;
     private final BotClient botClient;
-
 
     @Override
     public void update() {

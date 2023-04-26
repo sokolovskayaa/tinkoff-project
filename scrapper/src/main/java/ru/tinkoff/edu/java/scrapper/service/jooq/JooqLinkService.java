@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.UnsupportedParsedLink;
 import ru.tinkoff.edu.java.linkParser.parser.LinkParser;
-import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.ChatLink;
-import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Link;
+import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.pojos.ChatLink;
+import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.pojos.Link;
 import ru.tinkoff.edu.java.scrapper.exception.InvalidTrackLinkException;
 import ru.tinkoff.edu.java.scrapper.exception.InvalidUntrackLinkException;
 import ru.tinkoff.edu.java.scrapper.exception.LinkIsAlreadyTrackedException;
@@ -18,9 +18,9 @@ import ru.tinkoff.edu.java.scrapper.service.LinkService;
 import java.net.URI;
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 @Slf4j
+@Service
 public class JooqLinkService implements LinkService {
 
     private final JooqLinkRepository linkRepository;
@@ -63,8 +63,9 @@ public class JooqLinkService implements LinkService {
     }
 
     @Override
-    public List<Link> listAll(long chatId) {
+    public List<ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Link> listAll(long chatId) {
         log.info("service links in chat {}", chatId);
-        return linkRepository.findAllLinksInChat(chatId);
+        return null;
+//        return linkRepository.findAllLinksInChat(chatId);
     }
 }
