@@ -2,12 +2,9 @@ package ru.tinkoff.edu.java.scrapper.service.jpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.UnsupportedParsedLink;
 import ru.tinkoff.edu.java.linkParser.parser.LinkParser;
-import ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.ChatLink;
 import ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Link;
 import ru.tinkoff.edu.java.scrapper.exception.InvalidTrackLinkException;
 import ru.tinkoff.edu.java.scrapper.exception.InvalidUntrackLinkException;
@@ -20,9 +17,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
-@Service
-@Primary
-
 public class JpaLinkService implements LinkService {
 
     private final JpaLinkRepository linkRepository;
@@ -36,29 +30,29 @@ public class JpaLinkService implements LinkService {
             log.info("cant track link {}", linkUrl);
             throw new InvalidTrackLinkException();
         }
-        if(linkRepository.findAllByUrl(linkUrl).isEmpty()) {
+        if (linkRepository.findAllByUrl(linkUrl).isEmpty()) {
             linkRepository.addLink(linkUrl);
         }
         Link link = linkRepository.findAllByUrl(linkUrl).get(0);
-        if(linkRepository.getChatLinksByUrlAndChatId(chatId, linkUrl).isEmpty()) {
+        if (linkRepository.getLinkIdByUrlAndChatId(chatId, linkUrl).isEmpty()) {
             log.info("link {} is already tracked in chat {}", linkUrl, chatId);
             throw new LinkIsAlreadyTrackedException();
         }
         log.info("add link {} to chat {}", linkUrl, chatId);
-        linkRepository.addChatLink(chatId, link);
+        linkRepository.addChatLink(chatId, link.getId());
     }
 
     @Override
     public void remove(long chatId, URI url) {
-        if (linkRepository.getChatLinksByUrlAndChatId(chatId, url.toString()).isEmpty()) {
+        if (linkRepository.getLinkIdByUrlAndChatId(chatId, url.toString()).isEmpty()) {
             log.info("cant untrack untracked link {}", url);
             throw new InvalidUntrackLinkException();
         }
-        ChatLink link = linkRepository.getChatLinksByUrlAndChatId(chatId, url.toString()).get(0);
+        long linkId = linkRepository.getLinkIdByUrlAndChatId(chatId, url.toString()).get(0);
         log.info("delete chat {}", chatId);
-        linkRepository.removeChatLink(link);
-        if(linkRepository.getChatLinksByLinkId(link.getLinkId()).isEmpty()) {
-            linkRepository.removeLinkById(link.getLinkId());
+        linkRepository.removeChatLink(chatId, linkId);
+        if (linkRepository.getChatLinksByLinkId(linkId).isEmpty()) {
+            linkRepository.removeLinkById(linkId);
         }
     }
 

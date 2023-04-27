@@ -2,9 +2,6 @@ package ru.tinkoff.edu.java.scrapper.service.jdbc;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.linkParser.link.GitHubParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.StackOverflowParsedLink;
@@ -22,9 +19,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
-@Service
-//@Primary
-
 public class JdbcLinkUpdater implements LinkUpdater {
 
     private final JdbcLinkUpdateRepository linkUpdateRepository;

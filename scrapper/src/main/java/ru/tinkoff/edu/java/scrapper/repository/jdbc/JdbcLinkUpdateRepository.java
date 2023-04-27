@@ -2,20 +2,16 @@ package ru.tinkoff.edu.java.scrapper.repository.jdbc;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.ChatLink;
 import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Link;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-@Repository
+
 @Slf4j
 @RequiredArgsConstructor
-//@Primary
-
 public class JdbcLinkUpdateRepository {
 
     private final JdbcTemplate jdbcTemplate;

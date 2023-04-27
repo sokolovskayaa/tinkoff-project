@@ -2,10 +2,8 @@ package ru.tinkoff.edu.java.scrapper.repository.jdbc;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Chat;
 
 import java.sql.PreparedStatement;
@@ -13,8 +11,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
-@Repository
-//@Primary
 public class JdbcChatRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -38,6 +34,7 @@ public class JdbcChatRepository {
             return ps;
         });
     }
+
     public List<Chat> findAll() {
         return jdbcTemplate.query(FIND_ALL_CHATS_QUERY, (rs, rowNum) -> {
             Chat chat = new Chat();

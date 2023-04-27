@@ -3,17 +3,15 @@ package ru.tinkoff.edu.java.scrapper.repository.jooq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.pojos.ChatLink;
 import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Link;
-
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.ChatLink.CHAT_LINK;
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Link.LINK;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@Repository
+import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.ChatLink.CHAT_LINK;
+import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Link.LINK;
+
 @RequiredArgsConstructor
 @Slf4j
 public class JooqLinkUpdateRepository {

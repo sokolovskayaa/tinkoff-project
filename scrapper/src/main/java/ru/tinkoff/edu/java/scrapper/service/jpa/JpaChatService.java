@@ -2,8 +2,6 @@ package ru.tinkoff.edu.java.scrapper.service.jpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Chat;
 import ru.tinkoff.edu.java.scrapper.exception.ChatAlreadyExistsException;
 import ru.tinkoff.edu.java.scrapper.exception.ChatNotFoundException;
@@ -13,8 +11,6 @@ import ru.tinkoff.edu.java.scrapper.service.ChatService;
 
 @RequiredArgsConstructor
 @Slf4j
-@Service
-@Primary
 public class JpaChatService implements ChatService {
 
     private final JpaChatRepository jdbcChatRepository;

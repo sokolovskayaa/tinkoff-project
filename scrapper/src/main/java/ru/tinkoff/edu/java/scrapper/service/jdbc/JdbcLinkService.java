@@ -2,8 +2,6 @@ package ru.tinkoff.edu.java.scrapper.service.jdbc;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.UnsupportedParsedLink;
@@ -21,9 +19,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
-@Service
-//@Primary
-
 public class JdbcLinkService implements LinkService {
 
     private final JdbcLinkRepository linkRepository;
@@ -38,11 +33,11 @@ public class JdbcLinkService implements LinkService {
             log.info("cant track link {}", linkUrl);
             throw new InvalidTrackLinkException();
         }
-        if(linkRepository.getLinksFromLinkByUrl(linkUrl).isEmpty()) {
+        if (linkRepository.getLinksFromLinkByUrl(linkUrl).isEmpty()) {
             linkRepository.addLink(linkUrl);
         }
         Link link = linkRepository.getLinksFromLinkByUrl(linkUrl).get(0);
-        if(linkRepository.getChatLinksByUrlAndChatId(chatId, linkUrl).isEmpty()) {
+        if (linkRepository.getChatLinksByUrlAndChatId(chatId, linkUrl).isEmpty()) {
             log.info("link {} is already tracked in chat {}", linkUrl, chatId);
             throw new LinkIsAlreadyTrackedException();
         }
@@ -60,7 +55,7 @@ public class JdbcLinkService implements LinkService {
         ChatLink link = linkRepository.getChatLinksByUrlAndChatId(chatId, url.toString()).get(0);
         log.info("delete chat {}", chatId);
         linkRepository.removeChatLink(link);
-        if(linkRepository.getChatLinksByLinkId(link.getLinkId()).isEmpty()) {
+        if (linkRepository.getChatLinksByLinkId(link.getLinkId()).isEmpty()) {
             linkRepository.removeLastLink(link.getLinkId());
         }
     }

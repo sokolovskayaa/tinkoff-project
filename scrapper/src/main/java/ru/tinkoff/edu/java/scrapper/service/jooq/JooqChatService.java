@@ -2,7 +2,6 @@ package ru.tinkoff.edu.java.scrapper.service.jooq;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.exception.ChatAlreadyExistsException;
 import ru.tinkoff.edu.java.scrapper.exception.ChatNotFoundException;
@@ -12,7 +11,6 @@ import ru.tinkoff.edu.java.scrapper.service.ChatService;
 
 @RequiredArgsConstructor
 @Slf4j
-@Service
 public class JooqChatService implements ChatService {
 
 
