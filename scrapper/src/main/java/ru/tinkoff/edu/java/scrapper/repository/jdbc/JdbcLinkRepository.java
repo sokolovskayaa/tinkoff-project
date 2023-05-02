@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.ChatLink;
 import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Link;
 
@@ -12,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.util.List;
 
 
-@Repository
 @RequiredArgsConstructor
 @Slf4j
 public class JdbcLinkRepository {
@@ -49,8 +47,9 @@ public class JdbcLinkRepository {
     public List<ChatLink> getChatLinksByUrlAndChatId(long chatId, String url) {
         return jdbcTemplate.query(SELECT_CHAT_LINK_BY_ID_AND_URL_QUERY, new BeanPropertyRowMapper(ChatLink.class), url, chatId);
     }
+
     public List<ChatLink> getChatLinksByLinkId(long linkId) {
-        return jdbcTemplate.query(SELECT_CHAT_LINK_BY_LINK_ID, new BeanPropertyRowMapper(ChatLink.class),linkId);
+        return jdbcTemplate.query(SELECT_CHAT_LINK_BY_LINK_ID, new BeanPropertyRowMapper(ChatLink.class), linkId);
     }
 
     public void addLink(String url) {

@@ -4,13 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Chat;
 
 import java.sql.PreparedStatement;
 import java.util.List;
 
-@Repository
 @RequiredArgsConstructor
 @Slf4j
 public class JdbcChatRepository {
@@ -36,6 +34,7 @@ public class JdbcChatRepository {
             return ps;
         });
     }
+
     public List<Chat> findAll() {
         return jdbcTemplate.query(FIND_ALL_CHATS_QUERY, (rs, rowNum) -> {
             Chat chat = new Chat();

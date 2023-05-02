@@ -2,13 +2,12 @@ package ru.tinkoff.edu.java.scrapper.service.jooq;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.UnsupportedParsedLink;
 import ru.tinkoff.edu.java.linkParser.parser.LinkParser;
-import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.ChatLink;
-import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Link;
+import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.pojos.ChatLink;
+import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.pojos.Link;
 import ru.tinkoff.edu.java.scrapper.exception.InvalidTrackLinkException;
 import ru.tinkoff.edu.java.scrapper.exception.InvalidUntrackLinkException;
 import ru.tinkoff.edu.java.scrapper.exception.LinkIsAlreadyTrackedException;
@@ -18,7 +17,6 @@ import ru.tinkoff.edu.java.scrapper.service.LinkService;
 import java.net.URI;
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 @Slf4j
 public class JooqLinkService implements LinkService {
@@ -35,11 +33,11 @@ public class JooqLinkService implements LinkService {
             log.info("cant track link {}", linkUrl);
             throw new InvalidTrackLinkException();
         }
-        if(linkRepository.getLinksFromLinkByUrl(linkUrl).isEmpty()) {
+        if (linkRepository.getLinksFromLinkByUrl(linkUrl).isEmpty()) {
             linkRepository.addLink(linkUrl);
         }
         Link link = linkRepository.getLinksFromLinkByUrl(linkUrl).get(0);
-        if(linkRepository.getChatLinksByUrlAndChatId(chatId, linkUrl).isEmpty()) {
+        if (!linkRepository.getChatLinksByUrlAndChatId(chatId, linkUrl).isEmpty()) {
             log.info("link {} is already tracked in chat {}", linkUrl, chatId);
             throw new LinkIsAlreadyTrackedException();
         }
@@ -57,14 +55,15 @@ public class JooqLinkService implements LinkService {
         ChatLink link = linkRepository.getChatLinksByUrlAndChatId(chatId, url.toString()).get(0);
         log.info("delete chat {}", chatId);
         linkRepository.removeChatLink(link);
-        if(linkRepository.getChatLinksByLinkId(link.getLinkId()).isEmpty()) {
+        if (linkRepository.getChatLinksByLinkId(link.getLinkId()).isEmpty()) {
             linkRepository.removeLastLink(link.getLinkId());
         }
     }
 
     @Override
-    public List<Link> listAll(long chatId) {
+    public List<ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Link> listAll(long chatId) {
         log.info("service links in chat {}", chatId);
-        return linkRepository.findAllLinksInChat(chatId);
+        return null;
+//        return linkRepository.findAllLinksInChat(chatId);
     }
 }

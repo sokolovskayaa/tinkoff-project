@@ -2,8 +2,30 @@ app:
   test: 1
   scheduler:
     interval: 1000
+  database-access-type: jpa
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
   api-docs:
     path: /api-docs
+server:
+  port: 8080
+logging:
+  level:
+    org:
+      slf4j: DEBUG
+github-token: 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
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/scrapper
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect

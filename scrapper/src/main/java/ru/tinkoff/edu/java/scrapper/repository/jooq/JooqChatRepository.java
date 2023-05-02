@@ -3,15 +3,12 @@ package ru.tinkoff.edu.java.scrapper.repository.jooq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.pojos.Chat;
 
-import java.sql.PreparedStatement;
 import java.util.List;
 
 import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT;
 
-@Repository
 @RequiredArgsConstructor
 @Slf4j
 public class JooqChatRepository {
