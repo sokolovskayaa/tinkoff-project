@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import ru.tinkoff.edu.java.scrapper.Updater;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcChatRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkUpdateRepository;
@@ -14,7 +15,6 @@ import ru.tinkoff.edu.java.scrapper.service.LinkUpdater;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcChatService;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcLinkService;
 import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcLinkUpdater;
-import ru.tinkoff.edu.java.scrapper.webclient.BotClient;
 import ru.tinkoff.edu.java.scrapper.webclient.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.webclient.StackOverflowClient;
 
@@ -40,9 +40,9 @@ public class JdbcAccessConfiguration {
     }
 
     @Bean
-    public LinkUpdater jdbcLinkUpdater(JdbcLinkUpdateRepository repository, BotClient botClient,
+    public LinkUpdater jdbcLinkUpdater(JdbcLinkUpdateRepository repository, Updater updater,
                                        GitHubClient gitHubClient, StackOverflowClient stackOverflowClient) {
-        return new JdbcLinkUpdater(repository, gitHubClient, stackOverflowClient, botClient);
+        return new JdbcLinkUpdater(repository, gitHubClient, stackOverflowClient, updater);
     }
 
     @Bean
