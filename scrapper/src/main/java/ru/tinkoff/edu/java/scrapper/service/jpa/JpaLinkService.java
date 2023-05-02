@@ -2,6 +2,7 @@ package ru.tinkoff.edu.java.scrapper.service.jpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.UnsupportedParsedLink;
 import ru.tinkoff.edu.java.linkParser.parser.LinkParser;
@@ -23,6 +24,7 @@ public class JpaLinkService implements LinkService {
     private final LinkParser linkParser = new LinkParser();
 
     @Override
+    @Transactional
     public void add(long chatId, URI url) {
         String linkUrl = url.toString();
         ParsedLink parsedLink = linkParser.parseLink(linkUrl);
@@ -43,6 +45,7 @@ public class JpaLinkService implements LinkService {
     }
 
     @Override
+    @Transactional
     public void remove(long chatId, URI url) {
         if (linkRepository.getLinkIdByUrlAndChatId(chatId, url.toString()).isEmpty()) {
             log.info("cant untrack untracked link {}", url);
@@ -51,12 +54,13 @@ public class JpaLinkService implements LinkService {
         long linkId = linkRepository.getLinkIdByUrlAndChatId(chatId, url.toString()).get(0);
         log.info("delete chat {}", chatId);
         linkRepository.removeChatLink(chatId, linkId);
-        if (linkRepository.getChatLinksByLinkId(linkId).isEmpty()) {
+        if (!linkRepository.getChatLinksByLinkId(linkId).isEmpty()) {
             linkRepository.removeLinkById(linkId);
         }
     }
 
     @Override
+    @Transactional
     public List<Link> listAll(long chatId) {
         log.info("service links in chat {}", chatId);
         return linkRepository.findAllLinksInChat(chatId);

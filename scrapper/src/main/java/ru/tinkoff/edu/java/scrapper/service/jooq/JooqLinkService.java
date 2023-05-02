@@ -37,7 +37,7 @@ public class JooqLinkService implements LinkService {
             linkRepository.addLink(linkUrl);
         }
         Link link = linkRepository.getLinksFromLinkByUrl(linkUrl).get(0);
-        if (linkRepository.getChatLinksByUrlAndChatId(chatId, linkUrl).isEmpty()) {
+        if (!linkRepository.getChatLinksByUrlAndChatId(chatId, linkUrl).isEmpty()) {
             log.info("link {} is already tracked in chat {}", linkUrl, chatId);
             throw new LinkIsAlreadyTrackedException();
         }

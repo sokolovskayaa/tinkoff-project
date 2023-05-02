@@ -1,6 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.repository.jpa;
 
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,7 @@ import ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Link;
 
 import java.util.List;
 
+@ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")
 public interface JpaLinkRepository extends JpaRepository<Link, Long> {
     List<Link> findAllByUrl(String url);
 

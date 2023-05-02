@@ -37,7 +37,7 @@ public class JdbcLinkService implements LinkService {
             linkRepository.addLink(linkUrl);
         }
         Link link = linkRepository.getLinksFromLinkByUrl(linkUrl).get(0);
-        if (linkRepository.getChatLinksByUrlAndChatId(chatId, linkUrl).isEmpty()) {
+        if (!linkRepository.getChatLinksByUrlAndChatId(chatId, linkUrl).isEmpty()) {
             log.info("link {} is already tracked in chat {}", linkUrl, chatId);
             throw new LinkIsAlreadyTrackedException();
         }
@@ -60,10 +60,8 @@ public class JdbcLinkService implements LinkService {
         }
     }
 
-    @Override
-    public List<ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Link> listAll(long chatId) {
+    public List<Link> listAll(long chatId) {
         log.info("service links in chat {}", chatId);
-        return null;
-//        return linkRepository.findAllLinksInChat(chatId);
+        return linkRepository.findAllLinksInChat(chatId);
     }
 }
