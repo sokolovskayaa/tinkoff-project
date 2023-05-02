@@ -5,6 +5,7 @@ import org.jooq.DSLContext;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.tinkoff.edu.java.scrapper.Updater;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqChatRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqLinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqLinkUpdateRepository;
@@ -14,7 +15,6 @@ import ru.tinkoff.edu.java.scrapper.service.LinkUpdater;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqChatService;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqLinkService;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqLinkUpdater;
-import ru.tinkoff.edu.java.scrapper.webclient.BotClient;
 import ru.tinkoff.edu.java.scrapper.webclient.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.webclient.StackOverflowClient;
 
@@ -40,9 +40,9 @@ public class JooqAccessConfiguration {
     }
 
     @Bean
-    public LinkUpdater LinkUpdater(JooqLinkUpdateRepository repository, BotClient botClient,
-                                       GitHubClient gitHubClient, StackOverflowClient stackOverflowClient) {
-        return new JooqLinkUpdater(repository, gitHubClient, stackOverflowClient, botClient);
+    public LinkUpdater LinkUpdater(JooqLinkUpdateRepository repository, Updater updater,
+                                   GitHubClient gitHubClient, StackOverflowClient stackOverflowClient) {
+        return new JooqLinkUpdater(repository, gitHubClient, stackOverflowClient, updater);
     }
 
     @Bean

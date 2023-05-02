@@ -6,11 +6,11 @@ import ru.tinkoff.edu.java.linkParser.link.GitHubParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.StackOverflowParsedLink;
 import ru.tinkoff.edu.java.linkParser.parser.LinkParser;
+import ru.tinkoff.edu.java.scrapper.Updater;
 import ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Link;
 import ru.tinkoff.edu.java.scrapper.dto.request.LinkUpdateRequest;
 import ru.tinkoff.edu.java.scrapper.repository.jpa.JpaLinkUpdaterRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkUpdater;
-import ru.tinkoff.edu.java.scrapper.webclient.BotClient;
 import ru.tinkoff.edu.java.scrapper.webclient.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.webclient.StackOverflowClient;
 
@@ -24,7 +24,7 @@ public class JpaLinkUpdater implements LinkUpdater {
     private final LinkParser linkParser = new LinkParser();
     private final GitHubClient gitHubClient;
     private final StackOverflowClient stackOverflowClient;
-    private final BotClient botClient;
+    private final Updater updater;
 
 
     @Override
@@ -94,6 +94,6 @@ public class JpaLinkUpdater implements LinkUpdater {
             log.info("chat {}", chat);
         }
         LinkUpdateRequest request = new LinkUpdateRequest(Integer.parseInt(link.getId().toString()), link.getUrl(), message, chats);
-        botClient.updateLink(request);
+        updater.updateLink(request);
     }
 }
