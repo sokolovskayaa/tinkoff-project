@@ -4,7 +4,7 @@ on:
       - 'scrapper/**'
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: ghcr.io 
   IMAGE_NAME: scrapper
 
 
