@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class RabbitMQConfiguration {
+    private static final String GUEST = "guest";
 
     private final ApplicationConfig config;
 
@@ -45,8 +46,8 @@ public class RabbitMQConfiguration {
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
-        cachingConnectionFactory.setUsername("guest");
-        cachingConnectionFactory.setPassword("guest");
+        cachingConnectionFactory.setUsername(GUEST);
+        cachingConnectionFactory.setPassword(GUEST);
         return cachingConnectionFactory;
     }
 

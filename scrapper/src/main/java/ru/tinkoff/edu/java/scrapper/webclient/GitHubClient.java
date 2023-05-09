@@ -16,6 +16,8 @@ import java.util.Objects;
 public class GitHubClient {
 
     private static final String BASE_URL = "https://api.github.com/";
+    private static final String AUTH = "Authorization";
+    private static final String PATH = "repos/{owner}/{repo}";
 
     @Value("${github-token}")
     private String githubToken;
@@ -33,8 +35,8 @@ public class GitHubClient {
         log.info(owner + " " + repo);
         return webClient.get()
             .uri(uriBuilder -> uriBuilder
-                .path("repos/{owner}/{repo}").build(owner, repo))
-            .header("Authorization", String.format("Bearer %s", githubToken))
+                .path(PATH).build(owner, repo))
+            .header(AUTH, String.format("Bearer %s", githubToken))
             .retrieve()
             .bodyToMono(GitHubRepositoryResponse.class)
             .block();
@@ -45,8 +47,8 @@ public class GitHubClient {
         log.info("Get commits from {}/{} since {}", owner, repo, updatedAt);
         return Arrays.stream(Objects.requireNonNull(webClient.get()
             .uri(uriBuilder -> uriBuilder
-                .path("repos/{owner}/{repo}/commits").queryParam("since", updatedAt).build(owner, repo))
-            .header("Authorization", String.format("Bearer %s", githubToken))
+                .path(PATH+"/commits").queryParam("since", updatedAt).build(owner, repo))
+            .header(AUTH, String.format("Bearer %s", githubToken))
             .retrieve()
             .bodyToMono(Commit[].class)
             .block())).toList();

@@ -63,7 +63,7 @@ public class JpaLinkUpdater implements LinkUpdater {
                     ((GitHubParsedLink) parsedLink).repo()
                 );
             if (repo.pushedAt().isAfter(link.getUpdatedAt())) {
-                log.info("link {} was updated", link.getUrl());
+                log.info("repo {} was updated", link.getUrl());
                 linkUpdateRepository.updateLinkById(link.getId());
                 notifyChats(link, String.format("Repo %s has been updated", link.getUrl()));
             }
@@ -85,7 +85,7 @@ public class JpaLinkUpdater implements LinkUpdater {
         var questions = stackOverflowClient
             .getQuestion(((StackOverflowParsedLink) parsedLink).id());
         if (questions.questions().get(0).lastActivityDate().isAfter(link.getUpdatedAt())) {
-            log.info("link {} was updated", link.getUrl());
+            log.info("question {} was updated", link.getUrl());
             linkUpdateRepository.updateLinkById(link.getId());
             notifyChats(link, String.format(
                 "Question %s has been updated",

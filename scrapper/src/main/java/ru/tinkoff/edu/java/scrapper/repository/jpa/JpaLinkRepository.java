@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.repository.jpa;
 
+import java.util.List;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -7,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Link;
-
-import java.util.List;
 
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")
 public interface JpaLinkRepository extends JpaRepository<Link, Long> {
@@ -21,7 +20,7 @@ public interface JpaLinkRepository extends JpaRepository<Link, Long> {
 
     @Transactional
     @Query(value = "select link_id from chat_link join link on link.id = chat_link.link_id where link.url = :url and chat_id = :chatId", nativeQuery = true)
-    List<Long> getLinkIdByUrlAndChatId(@Param("chatId") long chatId, @Param("url") String LinkUrl);
+    List<Long> getLinkIdByUrlAndChatId(@Param("chatId") long chatId, @Param("url") String linkUrl);
 
     @Query(value = "INSERT INTO chat_link (chat_id, link_id) VALUES (:chatId, :linkId)", nativeQuery = true)
     @Modifying
