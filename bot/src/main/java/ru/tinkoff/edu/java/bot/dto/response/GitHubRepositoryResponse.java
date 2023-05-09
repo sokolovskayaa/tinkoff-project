@@ -11,6 +11,6 @@ public record GitHubRepositoryResponse(
     OwnerResponse owner,
     @JsonProperty("updated_at") OffsetDateTime updatedAt
 ) {
-    public record OwnerResponse(String name, String email, String login, int id)
-    { }
+    public record OwnerResponse(String name, String email, String login, int id) {
+    }
 }

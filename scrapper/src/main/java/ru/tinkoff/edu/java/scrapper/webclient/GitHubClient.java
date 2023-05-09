@@ -47,7 +47,7 @@ public class GitHubClient {
         log.info("Get commits from {}/{} since {}", owner, repo, updatedAt);
         return Arrays.stream(Objects.requireNonNull(webClient.get()
             .uri(uriBuilder -> uriBuilder
-                .path(PATH+"/commits").queryParam("since", updatedAt).build(owner, repo))
+                .path(PATH + "/commits").queryParam("since", updatedAt).build(owner, repo))
             .header(AUTH, String.format("Bearer %s", githubToken))
             .retrieve()
             .bodyToMono(Commit[].class)
