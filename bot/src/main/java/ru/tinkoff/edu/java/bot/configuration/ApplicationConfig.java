@@ -15,6 +15,6 @@ public record ApplicationConfig(
     public record QueueProperties(
             String exchange,
             String queue,
-            String key) {
-    }
+            String key
+    ) { }
 }

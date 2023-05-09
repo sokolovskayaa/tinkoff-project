@@ -1,6 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.dto.request;
 
-public record AddLinkRequest (
+public record AddLinkRequest(
      String link
-){}
+) { }
 

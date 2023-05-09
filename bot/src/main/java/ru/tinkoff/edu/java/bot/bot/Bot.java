@@ -16,10 +16,8 @@ import ru.tinkoff.edu.java.bot.command.Command;
 @Component
 @Slf4j
 public class Bot {
-
     private final TelegramBot telegramBot;
     private final UserMessageProcessor processor;
-
     @PostConstruct
     public void init() {
         initMenu();
@@ -38,7 +36,7 @@ public class Bot {
                 .map(Command::toApiCommand).toArray(BotCommand[]::new)));
     }
 
-    public void sendMessage(long chatId, String url) {
+    public void sendMessage(final long chatId, final String url) {
         log.info("notify chat {} about link {}", chatId, url);
         String text = String.format("Your link %s has been updated", url);
         SendMessage request = new SendMessage(chatId, text);

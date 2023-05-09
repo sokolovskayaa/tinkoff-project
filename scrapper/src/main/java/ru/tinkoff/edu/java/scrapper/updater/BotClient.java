@@ -17,7 +17,7 @@ public class BotClient implements Updater {
         webClient = WebClient.create(BASE_URL);
     }
 
-    public BotClient(String url) {
+    public BotClient(final String url) {
         webClient = WebClient.create(url);
     }
 

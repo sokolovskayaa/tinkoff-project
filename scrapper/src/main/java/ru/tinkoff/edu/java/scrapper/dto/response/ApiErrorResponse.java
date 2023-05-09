@@ -9,4 +9,4 @@ public record ApiErrorResponse(
         String exceptionName,
         String exceptionMessage,
         List<String> stacktrace
-) {}
+) { }
