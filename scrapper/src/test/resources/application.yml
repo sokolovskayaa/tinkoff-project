@@ -1,0 +1,35 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:tc:postgresql:14:///scrapper?TC_DAEMON=true
+    username: postgres
+    password: password
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+
+  liquibase:
+    change-log: classpath:scrapper/migrations/master.xml
+    enabled: false
+
+
+  main:
+    allow-bean-definition-overriding: true
+app:
+  test: 1
+  use-queue: true
+  scheduler:
+    interval: 1000
+  database-access-type: jpa
+  queue-properties:
+    exchange: scrapper
+    queue: scrapper
+    key: scrapper
+    dlx: scrapper
+
+github-token: ${GITHUB_TOKEN}

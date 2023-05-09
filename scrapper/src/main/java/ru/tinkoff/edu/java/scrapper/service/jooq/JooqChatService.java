@@ -8,17 +8,15 @@ import ru.tinkoff.edu.java.scrapper.exception.ChatNotFoundException;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.ChatService;
 
-
 @RequiredArgsConstructor
 @Slf4j
 public class JooqChatService implements ChatService {
-
 
     private final JooqChatRepository jooqChatRepository;
 
     @Override
     @Transactional
-    public void register(long chatId) {
+    public void register(final long chatId) {
         if (jooqChatRepository.exist(chatId)) {
             log.info("chat {} exists", chatId);
             throw new ChatAlreadyExistsException();
@@ -29,7 +27,7 @@ public class JooqChatService implements ChatService {
 
     @Override
     @Transactional
-    public void unregister(long chatId) {
+    public void unregister(final long chatId) {
         if (!jooqChatRepository.exist(chatId)) {
             log.info("cant remove unregister user {}", chatId);
             throw new ChatNotFoundException();

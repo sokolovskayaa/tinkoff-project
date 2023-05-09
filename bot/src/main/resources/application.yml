@@ -1,0 +1,21 @@
+app:
+  test: 1
+  use-queue: true
+  queue-properties:
+    exchange: scrapper
+    queue: scrapper
+    key: scrapper
+
+bot-token: ${TG_BOT_TOKEN}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
+server:
+  port: 8081
+logging:
+  level:
+    org:
+      slf4j: DEBUG

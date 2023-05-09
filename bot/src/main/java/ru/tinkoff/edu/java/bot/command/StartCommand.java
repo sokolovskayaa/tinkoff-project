@@ -14,6 +14,7 @@ import static ru.tinkoff.edu.java.bot.enums.Command.START;
 @RequiredArgsConstructor
 public class StartCommand extends Command {
     private final ScrapperClient scrapperClient;
+
     @Override
     public String command() {
         return START.command;
@@ -27,7 +28,7 @@ public class StartCommand extends Command {
     @Override
     public SendMessage handle(Update update) {
         Long chatId = update.message().chat().id();
-        log.info("add chat {}", chatId);
+        log.info("User start conversation {}", chatId);
         scrapperClient.addChat(chatId);
         return new SendMessage(chatId, description());
     }

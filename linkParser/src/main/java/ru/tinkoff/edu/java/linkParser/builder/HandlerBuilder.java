@@ -11,5 +11,4 @@ public class HandlerBuilder {
         return new GitHubHandler(new StackOverflowHandler(new UnsupportedLinkHandler(null)));
     }
 
-
 }

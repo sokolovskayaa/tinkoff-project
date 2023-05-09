@@ -14,7 +14,7 @@ import ru.tinkoff.edu.java.scrapper.service.LinkUpdater;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqChatService;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqLinkService;
 import ru.tinkoff.edu.java.scrapper.service.jooq.JooqLinkUpdater;
-import ru.tinkoff.edu.java.scrapper.webclient.BotClient;
+import ru.tinkoff.edu.java.scrapper.updater.Updater;
 import ru.tinkoff.edu.java.scrapper.webclient.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.webclient.StackOverflowClient;
 
@@ -40,9 +40,11 @@ public class JooqAccessConfiguration {
     }
 
     @Bean
-    public LinkUpdater LinkUpdater(JooqLinkUpdateRepository repository, BotClient botClient,
-                                       GitHubClient gitHubClient, StackOverflowClient stackOverflowClient) {
-        return new JooqLinkUpdater(repository, gitHubClient, stackOverflowClient, botClient);
+    public LinkUpdater linkUpdater(
+        JooqLinkUpdateRepository repository, Updater updater,
+        GitHubClient gitHubClient, StackOverflowClient stackOverflowClient
+    ) {
+        return new JooqLinkUpdater(repository, gitHubClient, stackOverflowClient, updater);
     }
 
     @Bean

@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatLink {
-    private long chatId;
-    private int linkId;
+    private Long chatId;
+    private Long linkId;
 }

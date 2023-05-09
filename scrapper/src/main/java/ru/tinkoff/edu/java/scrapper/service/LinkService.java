@@ -1,6 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.service;
 
-import ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Link;
+import ru.tinkoff.edu.java.scrapper.dto.repository.ILink;
 
 import java.net.URI;
 import java.util.List;
@@ -10,5 +10,5 @@ public interface LinkService {
 
     void remove(long tgChatId, URI url);
 
-    List<?> listAll(long tgChatId);
+    List<? extends ILink> listAll(long tgChatId);
 }

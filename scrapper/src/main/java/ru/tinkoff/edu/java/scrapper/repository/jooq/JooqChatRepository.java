@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
 import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.pojos.Chat;
-
 import java.util.List;
-
 import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT;
 
 @RequiredArgsConstructor

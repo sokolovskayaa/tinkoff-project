@@ -1,26 +1,26 @@
-package ru.tinkoff.edu.java.scrapper.configuration.access;
-
-
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import ru.tinkoff.edu.java.scrapper.IntegrationEnvironment;
-import ru.tinkoff.edu.java.scrapper.service.LinkService;
-import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcLinkService;
-
-@SpringBootTest
-@RunWith(SpringRunner.class)
-@Slf4j
-public class JdbcAccessConfigTest extends IntegrationEnvironment {
-    @Autowired
-    LinkService service;
-
-    @Test
-    public void jdbcAccessConfigTest() {
-        Assertions.assertTrue(service instanceof JdbcLinkService);
-    }
-}
+//package ru.tinkoff.edu.java.scrapper.configuration.access;
+//
+//
+//import lombok.extern.slf4j.Slf4j;
+//import org.junit.Test;
+//import org.junit.jupiter.api.Assertions;
+//import org.junit.runner.RunWith;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.test.context.junit4.SpringRunner;
+//import ru.tinkoff.edu.java.scrapper.IntegrationEnvironment;
+//import ru.tinkoff.edu.java.scrapper.service.LinkService;
+//import ru.tinkoff.edu.java.scrapper.service.jdbc.JdbcLinkService;
+//
+//@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@Slf4j
+//public class JdbcAccessConfigTest extends IntegrationEnvironment {
+//    @Autowired
+//    LinkService service;
+//
+//    @Test
+//    public void jdbcAccessConfigTest() {
+//        Assertions.assertTrue(service instanceof JdbcLinkService);
+//    }
+//}

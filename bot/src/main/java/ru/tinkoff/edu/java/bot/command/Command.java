@@ -3,12 +3,9 @@ package ru.tinkoff.edu.java.bot.command;
 import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import ru.tinkoff.edu.java.bot.client.ScrapperClient;
 import ru.tinkoff.edu.java.linkParser.parser.LinkParser;
 
-public abstract class Command{
+public abstract class Command {
 
     protected final LinkParser linkParser = new LinkParser();
 
