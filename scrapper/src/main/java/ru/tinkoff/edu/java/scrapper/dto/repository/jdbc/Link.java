@@ -1,12 +1,11 @@
 package ru.tinkoff.edu.java.scrapper.dto.repository.jdbc;
 
+import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.tinkoff.edu.java.scrapper.dto.repository.ILink;
-
-import java.time.OffsetDateTime;
 
 @Setter
 @Getter

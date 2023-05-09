@@ -8,7 +8,6 @@ import ru.tinkoff.edu.java.scrapper.exception.ChatNotFoundException;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.ChatService;
 
-
 @RequiredArgsConstructor
 @Slf4j
 public class JdbcChatService implements ChatService {

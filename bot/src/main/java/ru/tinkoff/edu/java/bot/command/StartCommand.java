@@ -14,6 +14,7 @@ import static ru.tinkoff.edu.java.bot.enums.Command.START;
 @RequiredArgsConstructor
 public class StartCommand extends Command {
     private final ScrapperClient scrapperClient;
+
     @Override
     public String command() {
         return START.command;

@@ -3,8 +3,9 @@ package ru.tinkoff.edu.java.scrapper.configuration;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.Name;
-import java.time.Duration;
 import org.springframework.validation.annotation.Validated;
+
+import java.time.Duration;
 
 @Validated
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
@@ -27,5 +28,6 @@ public record ApplicationConfig(
         String queue,
         String key,
         String dlx
-    ) { }
+    ) {
+    }
 }

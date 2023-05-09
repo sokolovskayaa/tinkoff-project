@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.repository.jpa;
 
+import java.util.List;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -7,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Link;
-
-import java.util.List;
 
 @ConditionalOnProperty(prefix = "app", name = "database-access-type", havingValue = "jpa")
 public interface JpaLinkUpdaterRepository extends JpaRepository<Link, Long> {

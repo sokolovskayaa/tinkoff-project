@@ -30,25 +30,25 @@ public class ScrapperClient {
     }
 
     public void addChat(long chatId) {
-            webClient.post()
-                    .uri(uriBuilder -> uriBuilder.path(CHAT_URL)
-                            .build(chatId))
-                    .retrieve()
-                    .bodyToMono(Void.class)
-                    .timeout(Duration.ofMillis(SEC))
-                    .block();
+        webClient.post()
+            .uri(uriBuilder -> uriBuilder.path(CHAT_URL)
+                .build(chatId))
+            .retrieve()
+            .bodyToMono(Void.class)
+            .timeout(Duration.ofMillis(SEC))
+            .block();
 
         log.info("add chat {}", chatId);
     }
 
     public void deleteChat(long chatId) {
         webClient.delete()
-                .uri(uriBuilder -> uriBuilder.path(CHAT_URL)
-                        .build(chatId))
-                .retrieve()
-                .bodyToMono(Void.class)
-                .timeout(Duration.ofMillis(SEC))
-                .block();
+            .uri(uriBuilder -> uriBuilder.path(CHAT_URL)
+                .build(chatId))
+            .retrieve()
+            .bodyToMono(Void.class)
+            .timeout(Duration.ofMillis(SEC))
+            .block();
         log.info("sent delete chat {} to scrapper", chatId);
 
     }
@@ -56,36 +56,36 @@ public class ScrapperClient {
     public ListLinksResponse getLinks(Long chatId) {
         log.info("sent get links {} to scrapper", chatId);
         return webClient.get()
-                .uri("/links")
-                .header(TG_HEADER, chatId.toString())
-                .retrieve()
-                .bodyToMono(ListLinksResponse.class)
-                .timeout(Duration.ofMillis(SEC))
-                .block();
+            .uri("/links")
+            .header(TG_HEADER, chatId.toString())
+            .retrieve()
+            .bodyToMono(ListLinksResponse.class)
+            .timeout(Duration.ofMillis(SEC))
+            .block();
     }
 
     public void addLink(Long chatId, AddLinkRequest request) {
         log.info(String.valueOf(chatId), request);
         webClient.post()
-                .uri(LINK_URL)
-                .header(TG_HEADER, chatId.toString())
-                .bodyValue(request)
-                .retrieve()
-                .bodyToMono(Void.class)
-                .timeout(Duration.ofMillis(SEC))
-                .block();
+            .uri(LINK_URL)
+            .header(TG_HEADER, chatId.toString())
+            .bodyValue(request)
+            .retrieve()
+            .bodyToMono(Void.class)
+            .timeout(Duration.ofMillis(SEC))
+            .block();
         log.info("add link {} to chat {} to scrapper", request.link(), chatId);
     }
 
     public void deleteLink(Long chatId, RemoveLinkRequest request) {
         webClient.method(HttpMethod.DELETE)
-                .uri(LINK_URL)
-                .header(TG_HEADER, chatId.toString())
-                .bodyValue(request)
-                .retrieve()
-                .bodyToMono(Void.class)
-                .timeout(Duration.ofMillis(SEC))
-                .block();
+            .uri(LINK_URL)
+            .header(TG_HEADER, chatId.toString())
+            .bodyValue(request)
+            .retrieve()
+            .bodyToMono(Void.class)
+            .timeout(Duration.ofMillis(SEC))
+            .block();
         log.info("delete link {} to chat {} to scrapper", request.url(), chatId);
 
     }

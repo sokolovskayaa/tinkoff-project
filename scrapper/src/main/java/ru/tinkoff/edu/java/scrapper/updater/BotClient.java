@@ -1,11 +1,10 @@
 package ru.tinkoff.edu.java.scrapper.updater;
 
+import java.time.Duration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.scrapper.dto.request.LinkUpdateRequest;
-
-import java.time.Duration;
 
 @Service
 @ConditionalOnProperty(prefix = "app",
@@ -26,11 +25,11 @@ public class BotClient implements Updater {
 
     public void updateLink(final LinkUpdateRequest request) {
         webClient.post()
-                .uri("updates")
-                .bodyValue(request)
-                .retrieve().bodyToMono(Void.class)
-                .timeout(Duration.ofMillis(SEC))
-                .block();
+            .uri("updates")
+            .bodyValue(request)
+            .retrieve().bodyToMono(Void.class)
+            .timeout(Duration.ofMillis(SEC))
+            .block();
     }
 
 }

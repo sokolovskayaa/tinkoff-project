@@ -2,6 +2,10 @@ package ru.tinkoff.edu.java.bot.command;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -9,9 +13,6 @@ import ru.tinkoff.edu.java.bot.client.ScrapperClient;
 import ru.tinkoff.edu.java.bot.dto.request.AddLinkRequest;
 import ru.tinkoff.edu.java.linkParser.link.GitHubParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.StackOverflowParsedLink;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static ru.tinkoff.edu.java.bot.enums.Command.TRACK;
 

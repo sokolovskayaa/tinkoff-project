@@ -12,14 +12,17 @@ import java.util.List;
 @Component
 public class UserMessageProcessor {
     private final List<Command> commands;
+
     public SendMessage process(final Update update) {
         for (var command : commands) {
             if (command.supports(update)) {
                 try {
                     return command.handle(update);
                 } catch (Exception e) {
-                    return new SendMessage(update.message().chat().id(),
-                        "Произошла непредвиденная ошибка: " + e.getMessage());
+                    return new SendMessage(
+                        update.message().chat().id(),
+                        "Произошла непредвиденная ошибка: " + e.getMessage()
+                    );
                 }
             }
         }

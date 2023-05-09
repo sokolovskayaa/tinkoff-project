@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.bot.command.Command;
 
-
 @RequiredArgsConstructor
 @Component
 @Slf4j
@@ -34,7 +33,7 @@ public class Bot {
 
     public void initMenu() {
         telegramBot.execute(new SetMyCommands(processor.getCommands().stream()
-                .map(Command::toApiCommand).toArray(BotCommand[]::new)));
+            .map(Command::toApiCommand).toArray(BotCommand[]::new)));
     }
 
     public void sendMessage(final long chatId, final String url) {
@@ -43,6 +42,5 @@ public class Bot {
         SendMessage request = new SendMessage(chatId, text);
         telegramBot.execute(request);
     }
-
 
 }

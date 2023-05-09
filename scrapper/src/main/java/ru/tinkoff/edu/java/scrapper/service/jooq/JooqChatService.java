@@ -8,11 +8,9 @@ import ru.tinkoff.edu.java.scrapper.exception.ChatNotFoundException;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.ChatService;
 
-
 @RequiredArgsConstructor
 @Slf4j
 public class JooqChatService implements ChatService {
-
 
     private final JooqChatRepository jooqChatRepository;
 

@@ -21,9 +21,11 @@ public class JdbcLinkUpdateRepository {
 
     public List<Link> getLinks() {
         OffsetDateTime date = OffsetDateTime.now();
-        return jdbcTemplate.query(SELECT_OLD_LINKS_QUERY,
-                new BeanPropertyRowMapper<>(Link.class),
-                date.minusMinutes(1));
+        return jdbcTemplate.query(
+            SELECT_OLD_LINKS_QUERY,
+            new BeanPropertyRowMapper<>(Link.class),
+            date.minusMinutes(1)
+        );
     }
 
     public void updateLink(Link link) {

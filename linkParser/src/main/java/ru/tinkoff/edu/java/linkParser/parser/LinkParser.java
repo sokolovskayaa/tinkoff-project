@@ -11,6 +11,7 @@ public class LinkParser {
         HandlerBuilder builder = new HandlerBuilder();
         linkHandler = builder.getChainOfHandlers();
     }
+
     public ParsedLink parseLink(String url) {
         return linkHandler.parseLink(url);
     }

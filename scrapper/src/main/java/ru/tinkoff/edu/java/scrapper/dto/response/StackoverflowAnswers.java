@@ -5,25 +5,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public record StackoverflowAnswers(
-        @JsonProperty("items")
-        List<StackoverflowAnswer> answers
+    @JsonProperty("items")
+    List<StackoverflowAnswer> answers
 ) {
     @Override
     public String toString() {
         return "StackoverflowAnswers{" +
-                "answers=" + answers +
-                '}';
+            "answers=" + answers +
+            '}';
     }
 
     public record StackoverflowAnswer(
-            @JsonProperty("answer_id")
-            int answerId
+        @JsonProperty("answer_id")
+        int answerId
     ) {
         @Override
         public String toString() {
             return "StackoverflowAnswer{" +
-                    "answerId=" + answerId +
-                    '}';
+                "answerId=" + answerId +
+                '}';
         }
     }
 

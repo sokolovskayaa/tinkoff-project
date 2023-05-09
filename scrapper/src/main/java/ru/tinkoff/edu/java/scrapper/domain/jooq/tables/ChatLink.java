@@ -33,32 +33,23 @@ import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.records.ChatLinkRecord;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class ChatLink extends TableImpl<ChatLinkRecord> {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * The reference instance of <code>public.chat_link</code>
      */
     public static final ChatLink CHAT_LINK = new ChatLink();
-
-    /**
-     * The class holding records for this type
-     */
-    @Override
-    public Class<ChatLinkRecord> getRecordType() {
-        return ChatLinkRecord.class;
-    }
-
+    private static final long serialVersionUID = 1L;
     /**
      * The column <code>public.chat_link.chat_id</code>.
      */
     public final TableField<ChatLinkRecord, Long> CHAT_ID =
         createField(DSL.name("chat_id"), SQLDataType.BIGINT.nullable(false), this, "");
-
     /**
      * The column <code>public.chat_link.link_id</code>.
      */
     public final TableField<ChatLinkRecord, Long> LINK_ID =
         createField(DSL.name("link_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    private transient Chat _chat;
+    private transient Link _link;
 
     private ChatLink(Name alias, Table<ChatLinkRecord> aliased) {
         this(alias, aliased, null);
@@ -93,6 +84,14 @@ public class ChatLink extends TableImpl<ChatLinkRecord> {
         super(child, key, CHAT_LINK);
     }
 
+    /**
+     * The class holding records for this type
+     */
+    @Override
+    public Class<ChatLinkRecord> getRecordType() {
+        return ChatLinkRecord.class;
+    }
+
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
@@ -107,9 +106,6 @@ public class ChatLink extends TableImpl<ChatLinkRecord> {
     public List<ForeignKey<ChatLinkRecord, ?>> getReferences() {
         return Arrays.asList(Keys.CHAT_LINK__CHAT_LINK_CHAT_ID_FKEY, Keys.CHAT_LINK__CHAT_LINK_LINK_ID_FKEY);
     }
-
-    private transient Chat _chat;
-    private transient Link _link;
 
     /**
      * Get the implicit join path to the <code>public.chat</code> table.

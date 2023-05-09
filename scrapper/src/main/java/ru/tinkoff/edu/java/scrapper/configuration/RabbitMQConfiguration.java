@@ -16,7 +16,6 @@ public class RabbitMQConfiguration {
 
     private final ApplicationConfig config;
 
-
     @Bean
     public DirectExchange exchange() {
         return new DirectExchange(config.queueProperties().exchange());
@@ -25,8 +24,8 @@ public class RabbitMQConfiguration {
     @Bean
     public Queue queue() {
         return QueueBuilder.durable(config.queueProperties().queue())
-                .withArgument("x-dead-letter-exchange", config.queueProperties().exchange() + ".dlx")
-                .build();
+            .withArgument("x-dead-letter-exchange", config.queueProperties().exchange() + ".dlx")
+            .build();
     }
 
     @Bean

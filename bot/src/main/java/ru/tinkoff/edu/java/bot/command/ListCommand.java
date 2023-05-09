@@ -16,6 +16,7 @@ import static ru.tinkoff.edu.java.bot.enums.Command.LIST;
 public class ListCommand extends Command {
     private static final String EMPTY_LIST = "no tracked links";
     private final ScrapperClient scrapperClient;
+
     @Override
     public String command() {
         return LIST.command;

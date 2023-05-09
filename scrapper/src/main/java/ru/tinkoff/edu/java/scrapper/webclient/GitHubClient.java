@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.scrapper.dto.response.Commit;
 import ru.tinkoff.edu.java.scrapper.dto.response.GitHubRepositoryResponse;
-
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +21,6 @@ public class GitHubClient {
     private String githubToken;
     private final WebClient webClient;
 
-
     public GitHubClient() {
         webClient = WebClient.create(BASE_URL);
     }
@@ -34,23 +32,23 @@ public class GitHubClient {
     public GitHubRepositoryResponse getRepo(String owner, String repo) {
         log.info(owner + " " + repo);
         return webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("repos/{owner}/{repo}").build(owner, repo))
-                .header("Authorization", String.format("Bearer %s", githubToken))
-                .retrieve()
-                .bodyToMono(GitHubRepositoryResponse.class)
-                .block();
+            .uri(uriBuilder -> uriBuilder
+                .path("repos/{owner}/{repo}").build(owner, repo))
+            .header("Authorization", String.format("Bearer %s", githubToken))
+            .retrieve()
+            .bodyToMono(GitHubRepositoryResponse.class)
+            .block();
 
     }
 
     public List<Commit> getCommits(String owner, String repo, OffsetDateTime updatedAt) {
         log.info("Get commits from {}/{} since {}", owner, repo, updatedAt);
         return Arrays.stream(Objects.requireNonNull(webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("repos/{owner}/{repo}/commits").queryParam("since", updatedAt).build(owner, repo))
-                .header("Authorization", String.format("Bearer %s", githubToken))
-                .retrieve()
-                .bodyToMono(Commit[].class)
-                .block())).toList();
+            .uri(uriBuilder -> uriBuilder
+                .path("repos/{owner}/{repo}/commits").queryParam("since", updatedAt).build(owner, repo))
+            .header("Authorization", String.format("Bearer %s", githubToken))
+            .retrieve()
+            .bodyToMono(Commit[].class)
+            .block())).toList();
     }
 }

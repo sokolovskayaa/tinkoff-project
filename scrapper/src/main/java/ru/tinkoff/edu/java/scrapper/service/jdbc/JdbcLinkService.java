@@ -13,7 +13,6 @@ import ru.tinkoff.edu.java.scrapper.exception.InvalidUntrackLinkException;
 import ru.tinkoff.edu.java.scrapper.exception.LinkIsAlreadyTrackedException;
 import ru.tinkoff.edu.java.scrapper.repository.jdbc.JdbcLinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
-
 import java.net.URI;
 import java.util.List;
 

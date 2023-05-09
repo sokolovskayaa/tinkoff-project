@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.tinkoff.edu.java.bot.dto.request.LinkUpdateRequest;
 import ru.tinkoff.edu.java.bot.service.Receiver;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController

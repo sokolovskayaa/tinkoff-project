@@ -8,13 +8,14 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
 public record ApplicationConfig(
-        @NotNull String test,
-        @NotNull @Name("use-queue") boolean useQueue,
-        @NotNull @Name("queue-properties")QueueProperties queueProperties
+    @NotNull String test,
+    @NotNull @Name("use-queue") boolean useQueue,
+    @NotNull @Name("queue-properties") QueueProperties queueProperties
 ) {
     public record QueueProperties(
-            String exchange,
-            String queue,
-            String key
-    ) { }
+        String exchange,
+        String queue,
+        String key
+    ) {
+    }
 }

@@ -31,21 +31,11 @@ import ru.tinkoff.edu.java.scrapper.domain.jooq.tables.records.ChatRecord;
 @SuppressWarnings({"all", "unchecked", "rawtypes"})
 public class Chat extends TableImpl<ChatRecord> {
 
-    private static final long serialVersionUID = 1L;
-
     /**
      * The reference instance of <code>public.chat</code>
      */
     public static final Chat CHAT = new Chat();
-
-    /**
-     * The class holding records for this type
-     */
-    @Override
-    public Class<ChatRecord> getRecordType() {
-        return ChatRecord.class;
-    }
-
+    private static final long serialVersionUID = 1L;
     /**
      * The column <code>public.chat.id</code>.
      */
@@ -83,6 +73,14 @@ public class Chat extends TableImpl<ChatRecord> {
 
     public <O extends Record> Chat(Table<O> child, ForeignKey<O, ChatRecord> key) {
         super(child, key, CHAT);
+    }
+
+    /**
+     * The class holding records for this type
+     */
+    @Override
+    public Class<ChatRecord> getRecordType() {
+        return ChatRecord.class;
     }
 
     @Override
