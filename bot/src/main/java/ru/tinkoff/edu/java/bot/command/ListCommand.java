@@ -27,7 +27,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public SendMessage handle(Update update) {
+    public SendMessage handle(final Update update) {
         log.info("User ask to show a list of links");
         Long chatId = update.message().chat().id();
         ListLinksResponse response = scrapperClient.getLinks(chatId);
@@ -41,7 +41,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public boolean supports(Update update) {
+    public boolean supports(final Update update) {
         String messageText = update.message().text();
         return messageText.equals(command());
     }

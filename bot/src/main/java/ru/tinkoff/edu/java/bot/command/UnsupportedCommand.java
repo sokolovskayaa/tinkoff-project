@@ -26,7 +26,7 @@ public class UnsupportedCommand extends Command {
     }
 
     @Override
-    public SendMessage handle(Update update) {
+    public SendMessage handle(final Update update) {
         log.info("User's command is unsupported");
         Long chatId = update.message().chat().id();
         log.info(chatId + " " + description());
@@ -34,7 +34,7 @@ public class UnsupportedCommand extends Command {
     }
 
     @Override
-    public boolean supports(Update update) {
+    public boolean supports(final Update update) {
         return true;
     }
 }

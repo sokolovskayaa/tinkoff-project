@@ -23,8 +23,11 @@ public class RabbitMQConfiguration {
     @Bean
     public Queue queue() {
         return QueueBuilder.durable(config.queueProperties().queue())
-                .withArgument("x-dead-letter-exchange", config.queueProperties().exchange() + ".dlx")
-                .build();
+            .withArgument(
+                "x-dead-letter-exchange",
+                config.queueProperties().exchange() + ".dlx"
+            )
+            .build();
     }
 
     @Bean
@@ -34,7 +37,9 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Binding binding() {
-        return BindingBuilder.bind(queue()).to(exchange()).with(config.queueProperties().key());
+        return BindingBuilder.bind(queue())
+            .to(exchange())
+            .with(config.queueProperties().key());
     }
 
     @Bean
@@ -44,14 +49,15 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Queue dlq() {
-        return QueueBuilder.durable(config.queueProperties().queue() + ".dlq").build();
+        return QueueBuilder
+            .durable(config.queueProperties().queue() + ".dlq")
+            .build();
     }
 
     @Bean
     public Binding dlb() {
         return BindingBuilder.bind(dlq()).to(dlx());
     }
-
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -65,12 +71,15 @@ public class RabbitMQConfiguration {
     public ClassMapper classMapper() {
         var classMapper = new DefaultClassMapper();
         classMapper.setTrustedPackages("ru.tinkoff.edu.java.scrapper.dto.request.*");
-        classMapper.setIdClassMapping(Map.of("ru.tinkoff.edu.java.scrapper.dto.request.LinkUpdateRequest", LinkUpdateRequest.class));
+        classMapper.setIdClassMapping(Map.of(
+            "ru.tinkoff.edu.java.scrapper.dto.request.LinkUpdateRequest",
+            LinkUpdateRequest.class
+        ));
         return classMapper;
     }
 
     @Bean
-    public MessageConverter converter(ClassMapper classMapper) {
+    public MessageConverter converter(final ClassMapper classMapper) {
         var jsonConverter = new Jackson2JsonMessageConverter();
         jsonConverter.setClassMapper(classMapper);
         return jsonConverter;

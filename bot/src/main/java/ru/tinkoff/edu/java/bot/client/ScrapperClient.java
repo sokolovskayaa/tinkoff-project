@@ -18,6 +18,7 @@ public class ScrapperClient {
     private static final String LINK_URL = "links";
     private static final String CHAT_URL = "tg-chat/{id}";
     private static final String TG_HEADER = "Tg-Chat-Id";
+    private static final int SEC = 1000;
     private final WebClient webClient;
 
     public ScrapperClient() {
@@ -34,7 +35,7 @@ public class ScrapperClient {
                             .build(chatId))
                     .retrieve()
                     .bodyToMono(Void.class)
-                    .timeout(Duration.ofMillis(1000))
+                    .timeout(Duration.ofMillis(SEC))
                     .block();
 
         log.info("add chat {}", chatId);
@@ -46,7 +47,7 @@ public class ScrapperClient {
                         .build(chatId))
                 .retrieve()
                 .bodyToMono(Void.class)
-                .timeout(Duration.ofMillis(10000))
+                .timeout(Duration.ofMillis(SEC))
                 .block();
         log.info("sent delete chat {} to scrapper", chatId);
 
@@ -59,7 +60,7 @@ public class ScrapperClient {
                 .header(TG_HEADER, chatId.toString())
                 .retrieve()
                 .bodyToMono(ListLinksResponse.class)
-                .timeout(Duration.ofMillis(10000))
+                .timeout(Duration.ofMillis(SEC))
                 .block();
     }
 
@@ -71,7 +72,7 @@ public class ScrapperClient {
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(Void.class)
-                .timeout(Duration.ofMillis(10000))
+                .timeout(Duration.ofMillis(SEC))
                 .block();
         log.info("add link {} to chat {} to scrapper", request.link(), chatId);
     }
@@ -83,7 +84,7 @@ public class ScrapperClient {
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(Void.class)
-                .timeout(Duration.ofMillis(10000))
+                .timeout(Duration.ofMillis(SEC))
                 .block();
         log.info("delete link {} to chat {} to scrapper", request.url(), chatId);
 

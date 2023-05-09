@@ -18,6 +18,7 @@ import ru.tinkoff.edu.java.bot.command.Command;
 public class Bot {
     private final TelegramBot telegramBot;
     private final UserMessageProcessor processor;
+
     @PostConstruct
     public void init() {
         initMenu();
