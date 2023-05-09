@@ -4,7 +4,7 @@ on:
       - 'bot/**'
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: ghcr.io 
   IMAGE_NAME: bot
 
 
