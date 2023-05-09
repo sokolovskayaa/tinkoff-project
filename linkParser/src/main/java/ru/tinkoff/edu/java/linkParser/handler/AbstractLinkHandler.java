@@ -4,7 +4,7 @@ public abstract class AbstractLinkHandler implements LinkHandler {
 
     protected LinkHandler nextLinkHandler;
 
-    public AbstractLinkHandler(LinkHandler linkHandler) {
+    protected AbstractLinkHandler(LinkHandler linkHandler) {
         nextLinkHandler = linkHandler;
     }
 

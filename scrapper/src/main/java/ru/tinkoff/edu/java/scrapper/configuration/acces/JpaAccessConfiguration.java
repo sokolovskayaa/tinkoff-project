@@ -3,7 +3,7 @@ package ru.tinkoff.edu.java.scrapper.configuration.acces;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.tinkoff.edu.java.scrapper.Updater;
+import ru.tinkoff.edu.java.scrapper.updater.Updater;
 import ru.tinkoff.edu.java.scrapper.repository.jpa.JpaChatRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jpa.JpaLinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jpa.JpaLinkUpdaterRepository;

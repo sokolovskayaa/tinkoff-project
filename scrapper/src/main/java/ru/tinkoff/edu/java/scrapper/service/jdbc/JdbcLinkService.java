@@ -60,6 +60,8 @@ public class JdbcLinkService implements LinkService {
         }
     }
 
+    @Override
+    @Transactional
     public List<Link> listAll(long chatId) {
         log.info("service links in chat {}", chatId);
         return linkRepository.findAllLinksInChat(chatId);

@@ -61,9 +61,9 @@ public class JooqLinkService implements LinkService {
     }
 
     @Override
-    public List<ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Link> listAll(long chatId) {
+    @Transactional
+    public List<Link> listAll(long chatId) {
         log.info("service links in chat {}", chatId);
-        return null;
-//        return linkRepository.findAllLinksInChat(chatId);
+        return linkRepository.findAllLinksInChat(chatId);
     }
 }

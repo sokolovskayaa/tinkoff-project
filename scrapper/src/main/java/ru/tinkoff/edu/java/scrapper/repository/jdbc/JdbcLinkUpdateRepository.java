@@ -30,7 +30,7 @@ public class JdbcLinkUpdateRepository {
         jdbcTemplate.update(UPDATE_LINK_QUERY, link.getId());
     }
 
-    public List<ChatLink> getChats(int linkId) {
+    public List<ChatLink> getChats(long linkId) {
         return jdbcTemplate.query(SELECT_CHATS_BY_LINK_QUERY, new BeanPropertyRowMapper<>(ChatLink.class), linkId);
     }
 

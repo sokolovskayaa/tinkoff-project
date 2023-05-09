@@ -1,10 +1,9 @@
-package ru.tinkoff.edu.java.scrapper.queue;
+package ru.tinkoff.edu.java.scrapper.updater;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
-import ru.tinkoff.edu.java.scrapper.Updater;
 import ru.tinkoff.edu.java.scrapper.dto.request.LinkUpdateRequest;
 
 @RequiredArgsConstructor
@@ -12,6 +11,7 @@ import ru.tinkoff.edu.java.scrapper.dto.request.LinkUpdateRequest;
 @Service
 public class ScrapperQueueProducer implements Updater {
     private final RabbitTemplate rabbitTemplate;
+
     public void updateLink(LinkUpdateRequest update) {
         rabbitTemplate.convertAndSend("scrapper", update);
     }

@@ -15,11 +15,15 @@ public class UserMessageProcessor {
     public SendMessage process(Update update){
         for(var command : commands) {
             if(command.supports(update)) {
-                return command.handle(update);
+                try {
+                    return command.handle(update);
+                } catch (Exception e) {
+                    return new SendMessage(update.message().chat().id(), "Произошла непредвиденная ошибка: " + e.getMessage());
+                }
             }
         }
         return null;
-    };
+    }
 
     public List<Command> getCommands() {
         return commands;

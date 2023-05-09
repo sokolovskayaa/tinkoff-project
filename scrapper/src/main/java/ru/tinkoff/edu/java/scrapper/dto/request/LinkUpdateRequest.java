@@ -3,7 +3,7 @@ package ru.tinkoff.edu.java.scrapper.dto.request;
 import java.util.List;
 
 public record LinkUpdateRequest(
-        int id,
+        long id,
         String url,
         String description,
         List<Long> tgChatIds

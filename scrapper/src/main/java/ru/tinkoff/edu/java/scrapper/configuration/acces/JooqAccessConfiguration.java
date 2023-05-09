@@ -5,7 +5,7 @@ import org.jooq.DSLContext;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.tinkoff.edu.java.scrapper.Updater;
+import ru.tinkoff.edu.java.scrapper.updater.Updater;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqChatRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqLinkRepository;
 import ru.tinkoff.edu.java.scrapper.repository.jooq.JooqLinkUpdateRepository;
@@ -40,7 +40,7 @@ public class JooqAccessConfiguration {
     }
 
     @Bean
-    public LinkUpdater LinkUpdater(JooqLinkUpdateRepository repository, Updater updater,
+    public LinkUpdater linkUpdater(JooqLinkUpdateRepository repository, Updater updater,
                                    GitHubClient gitHubClient, StackOverflowClient stackOverflowClient) {
         return new JooqLinkUpdater(repository, gitHubClient, stackOverflowClient, updater);
     }

@@ -1,20 +1,17 @@
 package ru.tinkoff.edu.java.scrapper.webclient;
 
-import jdk.jfr.Category;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.scrapper.dto.response.StackoverflowAnswers;
-import ru.tinkoff.edu.java.scrapper.dto.response.StackoverflowQuestion;
 import ru.tinkoff.edu.java.scrapper.dto.response.StackoverflowQuestions;
 
 import java.time.Duration;
 import java.time.OffsetDateTime;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
+
 @Component
 public class StackOverflowClient {
-    private final static String BASE_URL = "https://api.stackexchange.com/";
+    private static final String BASE_URL = "https://api.stackexchange.com/";
     private final WebClient webClient;
 
     public StackOverflowClient() {
@@ -42,7 +39,7 @@ public class StackOverflowClient {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("questions/{id}/answers")
-                        .queryParam("fromdate", Date.from(updatedAt.toInstant()).getTime()/1000)
+                        .queryParam("fromdate", Date.from(updatedAt.toInstant()).getTime() / 1000)
                         .queryParam("order", "desc")
                         .queryParam("sort", "activity")
                         .queryParam("site", "stackoverflow")

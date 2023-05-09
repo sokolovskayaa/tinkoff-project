@@ -28,6 +28,7 @@ public class ListCommand extends Command {
 
     @Override
     public SendMessage handle(Update update) {
+        log.info("User ask to show a list of links");
         Long chatId = update.message().chat().id();
         ListLinksResponse response = scrapperClient.getLinks(chatId);
         log.info("show list {}", chatId);

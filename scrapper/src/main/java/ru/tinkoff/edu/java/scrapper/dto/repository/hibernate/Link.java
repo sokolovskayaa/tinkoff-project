@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.tinkoff.edu.java.scrapper.dto.repository.ILink;
 
 import java.time.OffsetDateTime;
 
@@ -12,7 +13,7 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 @Table(name = "link")
-public class Link {
+public class Link implements ILink {
     @Id
     @Column(name = "id")
     private Long id;

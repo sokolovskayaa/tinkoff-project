@@ -6,7 +6,7 @@ import ru.tinkoff.edu.java.linkParser.link.GitHubParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.StackOverflowParsedLink;
 import ru.tinkoff.edu.java.linkParser.parser.LinkParser;
-import ru.tinkoff.edu.java.scrapper.Updater;
+import ru.tinkoff.edu.java.scrapper.updater.Updater;
 import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.ChatLink;
 import ru.tinkoff.edu.java.scrapper.dto.repository.jdbc.Link;
 import ru.tinkoff.edu.java.scrapper.dto.request.LinkUpdateRequest;

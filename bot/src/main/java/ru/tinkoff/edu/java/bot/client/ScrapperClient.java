@@ -14,9 +14,10 @@ import java.time.Duration;
 @Component
 public class ScrapperClient {
 
-    private final static String BASE_URL = "http://localhost:8080/";
-    private final static String LINK_URL = "links";
-    private final static String CHAT_URL = "tg-chat/{id}";
+    private static final String BASE_URL = "http://localhost:8080/";
+    private static final String LINK_URL = "links";
+    private static final String CHAT_URL = "tg-chat/{id}";
+    private static final String TG_HEADER = "Tg-Chat-Id";
     private final WebClient webClient;
 
     public ScrapperClient() {
@@ -28,13 +29,13 @@ public class ScrapperClient {
     }
 
     public void addChat(long chatId) {
-        webClient.post()
-                .uri(uriBuilder -> uriBuilder.path(CHAT_URL)
-                        .build(chatId))
-                .retrieve()
-                .bodyToMono(Void.class)
-                .timeout(Duration.ofMillis(10000))
-                .block();
+            webClient.post()
+                    .uri(uriBuilder -> uriBuilder.path(CHAT_URL)
+                            .build(chatId))
+                    .retrieve()
+                    .bodyToMono(Void.class)
+                    .timeout(Duration.ofMillis(1000))
+                    .block();
 
         log.info("add chat {}", chatId);
     }
@@ -55,7 +56,7 @@ public class ScrapperClient {
         log.info("sent get links {} to scrapper", chatId);
         return webClient.get()
                 .uri("/links")
-                .header("Tg-Chat-Id", chatId.toString())
+                .header(TG_HEADER, chatId.toString())
                 .retrieve()
                 .bodyToMono(ListLinksResponse.class)
                 .timeout(Duration.ofMillis(10000))
@@ -66,7 +67,7 @@ public class ScrapperClient {
         log.info(String.valueOf(chatId), request);
         webClient.post()
                 .uri(LINK_URL)
-                .header("Tg-Chat-Id", chatId.toString())
+                .header(TG_HEADER, chatId.toString())
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(Void.class)
@@ -78,7 +79,7 @@ public class ScrapperClient {
     public void deleteLink(Long chatId, RemoveLinkRequest request) {
         webClient.method(HttpMethod.DELETE)
                 .uri(LINK_URL)
-                .header("Tg-Chat-Id", chatId.toString())
+                .header(TG_HEADER, chatId.toString())
                 .bodyValue(request)
                 .retrieve()
                 .bodyToMono(Void.class)

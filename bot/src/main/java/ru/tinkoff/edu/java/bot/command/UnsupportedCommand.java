@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.java.bot.client.ScrapperClient;
 
 @Component
 @Order(Ordered.LOWEST_PRECEDENCE)
@@ -15,7 +14,6 @@ import ru.tinkoff.edu.java.bot.client.ScrapperClient;
 @RequiredArgsConstructor
 public class UnsupportedCommand extends Command {
     private static final String UNSUPPORTED_COMMAND = "unsupported command";
-    private final ScrapperClient scrapperClient;
 
     @Override
     public String command() {
@@ -29,6 +27,7 @@ public class UnsupportedCommand extends Command {
 
     @Override
     public SendMessage handle(Update update) {
+        log.info("User's command is unsupported");
         Long chatId = update.message().chat().id();
         log.info(chatId + " " + description());
         return new SendMessage(chatId, description());
