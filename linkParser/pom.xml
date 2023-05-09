@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.tinkoff.edu.java.link-parser</groupId>
-    <artifactId>link-parser</artifactId>
+    <artifactId>linkParser</artifactId>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>

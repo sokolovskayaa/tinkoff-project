@@ -125,9 +125,8 @@
         </dependency>
         <dependency>
             <groupId>ru.tinkoff.edu.java.link-parser</groupId>
-            <artifactId>link-parser</artifactId>
+            <artifactId>linkParser</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
