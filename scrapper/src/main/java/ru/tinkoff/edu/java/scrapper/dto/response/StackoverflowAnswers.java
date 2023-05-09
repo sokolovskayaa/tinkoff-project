@@ -1,7 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 public record StackoverflowAnswers(
@@ -10,9 +9,10 @@ public record StackoverflowAnswers(
 ) {
     @Override
     public String toString() {
-        return "StackoverflowAnswers{" +
-            "answers=" + answers +
-            '}';
+        return "StackoverflowAnswers{"
+            + "answers="
+            + answers
+            + '}';
     }
 
     public record StackoverflowAnswer(

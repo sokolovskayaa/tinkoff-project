@@ -25,11 +25,11 @@ public class GitHubClient {
         webClient = WebClient.create(BASE_URL);
     }
 
-    public GitHubClient(String url) {
+    public GitHubClient(final String url) {
         webClient = WebClient.create(url);
     }
 
-    public GitHubRepositoryResponse getRepo(String owner, String repo) {
+    public GitHubRepositoryResponse getRepo(final String owner, final String repo) {
         log.info(owner + " " + repo);
         return webClient.get()
             .uri(uriBuilder -> uriBuilder
@@ -41,7 +41,7 @@ public class GitHubClient {
 
     }
 
-    public List<Commit> getCommits(String owner, String repo, OffsetDateTime updatedAt) {
+    public List<Commit> getCommits(final String owner, final String repo, final OffsetDateTime updatedAt) {
         log.info("Get commits from {}/{} since {}", owner, repo, updatedAt);
         return Arrays.stream(Objects.requireNonNull(webClient.get()
             .uri(uriBuilder -> uriBuilder

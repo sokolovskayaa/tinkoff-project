@@ -12,13 +12,12 @@ public record GitHubRepositoryResponse(
     @JsonProperty("pushed_at") OffsetDateTime pushedAt) {
     @Override
     public String toString() {
-        return "GitHubRepositoryResponse{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            ", fullName='" + fullName + '\'' +
-            ", owner=" + owner +
-            ", updatedAt=" + updatedAt +
-            '}';
+        return "GitHubRepositoryResponse{"
+            + "id=" + id + ", "
+            + "name='" + name + '\'' + ", "
+            + "fullName='" + fullName + '\''
+            + ", owner=" + owner
+            + ", updatedAt=" + updatedAt + '}';
     }
 
     public record OwnerResponse(String name, String email, String login, int id) { }

@@ -64,7 +64,7 @@ public class JooqLinkUpdater implements LinkUpdater {
                     ((GitHubParsedLink) parsedLink).repo()
                 );
             if (repo.pushedAt().isAfter(link.getUpdatedAt())) {
-                log.info("link {} was updated", link.getUrl());
+                log.info("repo {} was updated", link.getUrl());
                 linkUpdateRepository.updateLink(link);
                 notifyChats(link, String.format("Repo %s has been updated", link.getUrl()));
             }
@@ -83,7 +83,7 @@ public class JooqLinkUpdater implements LinkUpdater {
         var questions = stackOverflowClient
             .getQuestion(((StackOverflowParsedLink) parsedLink).id());
         if (questions.questions().get(0).lastActivityDate().isAfter(link.getUpdatedAt())) {
-            log.info("link {} was updated", link.getUrl());
+            log.info("question {} was updated", link.getUrl());
             linkUpdateRepository.updateLink(link);
             notifyChats(link, String.format("Question %s has been updated", ((StackOverflowParsedLink) parsedLink).id()));
         }
@@ -93,9 +93,6 @@ public class JooqLinkUpdater implements LinkUpdater {
     public void notifyChats(Link link, String message) {
         log.info(message, link.getUrl());
         List<Long> chats = linkUpdateRepository.getChats(link.getId()).stream().map(ChatLink::getChatId).toList();
-        for (var chat : chats) {
-            log.info("chat {}", chat);
-        }
         LinkUpdateRequest request = new LinkUpdateRequest(link.getId(), link.getUrl(), message, chats);
         updater.updateLink(request);
     }
