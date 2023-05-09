@@ -3,9 +3,9 @@ on:
     paths:
       - 'scrapper/**'
       
-  pull_request:
-    paths:
-      - 'scrapper/**'
+#   pull_request:
+#     paths:
+#       - 'scrapper/**'
 
 env:
   REGISTRY: ghcr.io 
