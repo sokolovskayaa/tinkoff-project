@@ -34,7 +34,7 @@ public class JdbcLinkUpdater implements LinkUpdater {
         }
     }
 
-    public void isLinkUpdated(Link link) {
+    public void isLinkUpdated(final Link link) {
         ParsedLink parsedLink = linkParser.parseLink(link.getUrl());
         if (parsedLink instanceof GitHubParsedLink) {
             checkGithubLink(parsedLink, link);
@@ -44,7 +44,7 @@ public class JdbcLinkUpdater implements LinkUpdater {
         }
     }
 
-    public void checkGithubLink(ParsedLink parsedLink, Link link) {
+    public void checkGithubLink(final ParsedLink parsedLink, final Link link) {
         if (parsedLink instanceof GitHubParsedLink) {
             log.info("link {} is a github repo", link.getUrl());
             var commits =
@@ -92,7 +92,7 @@ public class JdbcLinkUpdater implements LinkUpdater {
 
     }
 
-    public void notifyChats(Link link, String message) {
+    public void notifyChats(final Link link, final String message) {
         log.info(message, link.getUrl());
         List<Long> chats = linkUpdateRepository.getChats(link.getId()).stream().map(ChatLink::getChatId).toList();
         for (var chat : chats) {

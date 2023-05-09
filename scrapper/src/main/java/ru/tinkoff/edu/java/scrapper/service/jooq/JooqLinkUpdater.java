@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.service.jooq;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.tinkoff.edu.java.linkParser.link.GitHubParsedLink;
@@ -14,7 +15,6 @@ import ru.tinkoff.edu.java.scrapper.service.LinkUpdater;
 import ru.tinkoff.edu.java.scrapper.updater.Updater;
 import ru.tinkoff.edu.java.scrapper.webclient.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.webclient.StackOverflowClient;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -34,7 +34,7 @@ public class JooqLinkUpdater implements LinkUpdater {
         }
     }
 
-    public void isLinkUpdated(Link link) {
+    public void isLinkUpdated(final Link link) {
         ParsedLink parsedLink = linkParser.parseLink(link.getUrl());
         if (parsedLink instanceof GitHubParsedLink) {
             checkGithubLink(parsedLink, link);
@@ -44,7 +44,7 @@ public class JooqLinkUpdater implements LinkUpdater {
         }
     }
 
-    public void checkGithubLink(ParsedLink parsedLink, Link link) {
+    public void checkGithubLink(final ParsedLink parsedLink, final Link link) {
         if (parsedLink instanceof GitHubParsedLink) {
             log.info("link {} is a github repo", link.getUrl());
             var commits =
@@ -71,7 +71,7 @@ public class JooqLinkUpdater implements LinkUpdater {
         }
     }
 
-    public void checkStackoverflowLink(ParsedLink parsedLink, Link link) {
+    public void checkStackoverflowLink(final ParsedLink parsedLink, final Link link) {
         log.info("link {} is a Stackoverflow question", link.getUrl());
         var answers = stackOverflowClient
             .getAnswers(((StackOverflowParsedLink) parsedLink).id(), link.getUpdatedAt());
@@ -85,12 +85,15 @@ public class JooqLinkUpdater implements LinkUpdater {
         if (questions.questions().get(0).lastActivityDate().isAfter(link.getUpdatedAt())) {
             log.info("question {} was updated", link.getUrl());
             linkUpdateRepository.updateLink(link);
-            notifyChats(link, String.format("Question %s has been updated", ((StackOverflowParsedLink) parsedLink).id()));
+            notifyChats(link, String.format(
+                "Question %s has been updated",
+                ((StackOverflowParsedLink) parsedLink).id()
+            ));
         }
 
     }
 
-    public void notifyChats(Link link, String message) {
+    public void notifyChats(final Link link, final String message) {
         log.info(message, link.getUrl());
         List<Long> chats = linkUpdateRepository.getChats(link.getId()).stream().map(ChatLink::getChatId).toList();
         LinkUpdateRequest request = new LinkUpdateRequest(link.getId(), link.getUrl(), message, chats);

@@ -18,7 +18,7 @@ public class JpaChatService implements ChatService {
 
     @Override
     @Transactional
-    public void register(long chatId) {
+    public void register(final long chatId) {
         if (jdbcChatRepository.existsById(chatId)) {
             log.info("chat {} exists", chatId);
             throw new ChatAlreadyExistsException();
@@ -31,7 +31,7 @@ public class JpaChatService implements ChatService {
 
     @Override
     @Transactional
-    public void unregister(long chatId) {
+    public void unregister(final long chatId) {
         if (!jdbcChatRepository.existsById(chatId)) {
             log.info("cant remove unregister user {}", chatId);
             throw new ChatNotFoundException();

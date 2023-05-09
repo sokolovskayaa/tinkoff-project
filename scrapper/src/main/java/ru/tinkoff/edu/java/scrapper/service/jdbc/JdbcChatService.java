@@ -16,7 +16,7 @@ public class JdbcChatService implements ChatService {
 
     @Override
     @Transactional
-    public void register(long chatId) {
+    public void register(final long chatId) {
         if (jdbcChatRepository.exist(chatId)) {
             log.info("chat {} exists", chatId);
             throw new ChatAlreadyExistsException();
@@ -27,7 +27,7 @@ public class JdbcChatService implements ChatService {
 
     @Override
     @Transactional
-    public void unregister(long chatId) {
+    public void unregister(final long chatId) {
         if (!jdbcChatRepository.exist(chatId)) {
             log.info("cant remove unregister user {}", chatId);
             throw new ChatNotFoundException();

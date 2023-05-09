@@ -25,7 +25,7 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     @Transactional
-    public void add(long chatId, URI url) {
+    public void add(final long chatId, final URI url) {
         String linkUrl = url.toString();
         ParsedLink parsedLink = linkParser.parseLink(linkUrl);
         if (parsedLink instanceof UnsupportedParsedLink) {
@@ -46,7 +46,7 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     @Transactional
-    public void remove(long chatId, URI url) {
+    public void remove(final long chatId, final URI url) {
         if (linkRepository.getChatLinksByUrlAndChatId(chatId, url.toString()).isEmpty()) {
             log.info("cant untrack untracked link {}", url);
             throw new InvalidUntrackLinkException();
@@ -61,7 +61,7 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     @Transactional
-    public List<Link> listAll(long chatId) {
+    public List<Link> listAll(final long chatId) {
         log.info("service links in chat {}", chatId);
         return linkRepository.findAllLinksInChat(chatId);
     }

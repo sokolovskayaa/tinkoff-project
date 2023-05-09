@@ -11,17 +11,18 @@ import java.util.Date;
 @Component
 public class StackOverflowClient {
     private static final String BASE_URL = "https://api.stackexchange.com/";
+    private static final int SEC = 1000;
     private final WebClient webClient;
 
     public StackOverflowClient() {
         webClient = WebClient.create(BASE_URL);
     }
 
-    public StackOverflowClient(String url) {
+    public StackOverflowClient(final String url) {
         webClient = WebClient.create(url);
     }
 
-    public StackoverflowQuestions getQuestion(String id) {
+    public StackoverflowQuestions getQuestion(final String id) {
         return webClient.get()
             .uri(uriBuilder -> uriBuilder
                 .path("questions/{id}")
@@ -30,21 +31,21 @@ public class StackOverflowClient {
                 .queryParam("site", "stackoverflow")
                 .build(id))
             .retrieve().bodyToMono(StackoverflowQuestions.class)
-            .timeout(Duration.ofMillis(10000))
+            .timeout(Duration.ofMillis(SEC))
             .block();
     }
 
-    public StackoverflowAnswers getAnswers(String id, OffsetDateTime updatedAt) {
+    public StackoverflowAnswers getAnswers(final String id, final OffsetDateTime updatedAt) {
         return webClient.get()
             .uri(uriBuilder -> uriBuilder
                 .path("questions/{id}/answers")
-                .queryParam("fromdate", Date.from(updatedAt.toInstant()).getTime() / 1000)
+                .queryParam("fromdate", Date.from(updatedAt.toInstant()).getTime() / SEC)
                 .queryParam("order", "desc")
                 .queryParam("sort", "activity")
                 .queryParam("site", "stackoverflow")
                 .build(id))
             .retrieve().bodyToMono(StackoverflowAnswers.class)
-            .timeout(Duration.ofMillis(10000))
+            .timeout(Duration.ofMillis(SEC))
             .block();
     }
 }
