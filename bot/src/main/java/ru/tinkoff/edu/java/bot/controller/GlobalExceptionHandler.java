@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {Exception.class})
-    protected ResponseEntity<ApiErrorResponse> handleIllegalArgumentException(Exception ex) {
+    protected ResponseEntity<ApiErrorResponse> handleIllegalArgumentException(final Exception ex) {
         logger.error("Exception", ex);
         ApiErrorResponse e = new ApiErrorResponse("Некорректные параметры запроса",
                 HttpStatus.BAD_REQUEST.toString(), ex.toString(), ex.getMessage(), Arrays.stream(ex.getStackTrace()).map(StackTraceElement::toString).toList());

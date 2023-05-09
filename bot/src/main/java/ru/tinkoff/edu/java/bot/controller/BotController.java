@@ -18,7 +18,7 @@ public class BotController {
     private final Receiver receiver;
 
     @PostMapping(value = "/updates", consumes = APPLICATION_JSON_VALUE)
-    public void updateLink(@RequestBody LinkUpdateRequest request) {
+    public void updateLink(@RequestBody final LinkUpdateRequest request) {
         log.info("notify chats about update link {}", request.url());
         receiver.updateLinks(request);
     }

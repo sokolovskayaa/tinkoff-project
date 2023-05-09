@@ -10,12 +10,14 @@ import ru.tinkoff.edu.java.bot.dto.request.LinkUpdateRequest;
 @RequiredArgsConstructor
 @Slf4j
 @Service
-@ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "false")
+@ConditionalOnProperty(prefix = "app",
+                       name = "use-queue",
+                       havingValue = "false")
 public class BotService implements Receiver {
     private final Bot bot;
 
-    public void updateLinks(LinkUpdateRequest request){
-        for(var chatId : request.tgChatIds()) {
+    public void updateLinks(final LinkUpdateRequest request) {
+        for (var chatId : request.tgChatIds()) {
             log.info("notify chat {} about link {}", chatId, request.url());
             bot.sendMessage(chatId, request.url());
         }

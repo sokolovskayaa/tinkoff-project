@@ -8,9 +8,12 @@ import ru.tinkoff.edu.java.scrapper.dto.request.LinkUpdateRequest;
 import java.time.Duration;
 
 @Service
-@ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "false")
+@ConditionalOnProperty(prefix = "app",
+                       name = "use-queue",
+                       havingValue = "false")
 public class BotClient implements Updater {
     private static final String BASE_URL = "http://localhost:8081/";
+    private static final int SEC = 1000;
     private final WebClient webClient;
 
     public BotClient() {
@@ -21,12 +24,12 @@ public class BotClient implements Updater {
         webClient = WebClient.create(url);
     }
 
-    public void updateLink(LinkUpdateRequest request) {
+    public void updateLink(final LinkUpdateRequest request) {
         webClient.post()
                 .uri("updates")
                 .bodyValue(request)
                 .retrieve().bodyToMono(Void.class)
-                .timeout(Duration.ofMillis(10000))
+                .timeout(Duration.ofMillis(SEC))
                 .block();
     }
 
