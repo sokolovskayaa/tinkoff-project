@@ -6,20 +6,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.tinkoff.edu.java.bot.dto.response.ApiErrorResponse;
-
 import java.util.Arrays;
 
 @RestControllerAdvice(
-        basePackageClasses = BotController.class,
-        basePackages = "ru.tinkoff.edu.java.bot.controller"
+    basePackageClasses = BotController.class,
+    basePackages = "ru.tinkoff.edu.java.bot.controller"
 )
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {Exception.class})
-    protected ResponseEntity<ApiErrorResponse> handleIllegalArgumentException(Exception ex) {
+    protected ResponseEntity<ApiErrorResponse> handleIllegalArgumentException(final Exception ex) {
         logger.error("Exception", ex);
         ApiErrorResponse e = new ApiErrorResponse("Некорректные параметры запроса",
-                HttpStatus.BAD_REQUEST.toString(), ex.toString(), ex.getMessage(), Arrays.stream(ex.getStackTrace()).map(StackTraceElement::toString).toList());
+            HttpStatus.BAD_REQUEST.toString(), ex.toString(), ex.getMessage(), Arrays.stream(ex.getStackTrace()).map(StackTraceElement::toString).toList()
+        );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
     }
 }

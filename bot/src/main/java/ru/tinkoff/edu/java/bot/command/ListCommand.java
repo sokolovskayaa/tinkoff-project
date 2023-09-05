@@ -16,6 +16,7 @@ import static ru.tinkoff.edu.java.bot.enums.Command.LIST;
 public class ListCommand extends Command {
     private static final String EMPTY_LIST = "no tracked links";
     private final ScrapperClient scrapperClient;
+
     @Override
     public String command() {
         return LIST.command;
@@ -27,7 +28,8 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public SendMessage handle(Update update) {
+    public SendMessage handle(final Update update) {
+        log.info("User ask to show a list of links");
         Long chatId = update.message().chat().id();
         ListLinksResponse response = scrapperClient.getLinks(chatId);
         log.info("show list {}", chatId);
@@ -40,7 +42,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public boolean supports(Update update) {
+    public boolean supports(final Update update) {
         String messageText = update.message().text();
         return messageText.equals(command());
     }

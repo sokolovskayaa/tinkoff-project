@@ -9,7 +9,7 @@ public record ListLinksResponse(
     @Override
     public String toString() {
         StringBuilder toString = new StringBuilder("");
-        for(var to : links) {
+        for (var to : links) {
             toString.append(to);
             toString.append("\n");
         }

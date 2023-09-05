@@ -2,6 +2,7 @@ package ru.tinkoff.edu.java.scrapper.service.jpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dto.repository.hibernate.Chat;
 import ru.tinkoff.edu.java.scrapper.exception.ChatAlreadyExistsException;
 import ru.tinkoff.edu.java.scrapper.exception.ChatNotFoundException;
@@ -16,7 +17,8 @@ public class JpaChatService implements ChatService {
     private final JpaChatRepository jdbcChatRepository;
 
     @Override
-    public void register(long chatId) {
+    @Transactional
+    public void register(final long chatId) {
         if (jdbcChatRepository.existsById(chatId)) {
             log.info("chat {} exists", chatId);
             throw new ChatAlreadyExistsException();
@@ -28,7 +30,8 @@ public class JpaChatService implements ChatService {
     }
 
     @Override
-    public void unregister(long chatId) {
+    @Transactional
+    public void unregister(final long chatId) {
         if (!jdbcChatRepository.existsById(chatId)) {
             log.info("cant remove unregister user {}", chatId);
             throw new ChatNotFoundException();

@@ -17,7 +17,8 @@ import static ru.tinkoff.edu.java.bot.enums.Command.UNTRACK;
 @Slf4j
 @RequiredArgsConstructor
 public class UntrackCommand extends Command {
-    private final static Pattern UNTRACK_REG = Pattern.compile(UNTRACK.command + " (.*)");
+    private static final Pattern UNTRACK_REG =
+        Pattern.compile(UNTRACK.command + " (.*)");
     private final ScrapperClient scrapperClient;
 
     @Override
@@ -31,16 +32,16 @@ public class UntrackCommand extends Command {
     }
 
     @Override
-    public SendMessage handle(Update update) {
+    public SendMessage handle(final Update update) {
         Long chatId = update.message().chat().id();
         String[] text = update.message().text().split(" ");
-        log.info("untrack link {}", text[1]);
+        log.info("User want to untrack link {}", text[1]);
         scrapperClient.deleteLink(chatId, new RemoveLinkRequest(text[1]));
         return new SendMessage(chatId, description());
     }
 
     @Override
-    public boolean supports(Update update) {
+    public boolean supports(final Update update) {
         String messageText = update.message().text();
         Matcher matcher = UNTRACK_REG.matcher(messageText);
         return matcher.matches();

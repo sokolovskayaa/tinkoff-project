@@ -21,16 +21,18 @@ public class JdbcLinkUpdateRepository {
 
     public List<Link> getLinks() {
         OffsetDateTime date = OffsetDateTime.now();
-        return jdbcTemplate.query(SELECT_OLD_LINKS_QUERY,
-                new BeanPropertyRowMapper<>(Link.class),
-                date.minusMinutes(1));
+        return jdbcTemplate.query(
+            SELECT_OLD_LINKS_QUERY,
+            new BeanPropertyRowMapper<>(Link.class),
+            date.minusMinutes(1)
+        );
     }
 
     public void updateLink(Link link) {
         jdbcTemplate.update(UPDATE_LINK_QUERY, link.getId());
     }
 
-    public List<ChatLink> getChats(int linkId) {
+    public List<ChatLink> getChats(long linkId) {
         return jdbcTemplate.query(SELECT_CHATS_BY_LINK_QUERY, new BeanPropertyRowMapper<>(ChatLink.class), linkId);
     }
 

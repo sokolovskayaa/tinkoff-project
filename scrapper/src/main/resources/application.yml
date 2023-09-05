@@ -1,8 +1,18 @@
 app:
   test: 1
+  use-queue: true
   scheduler:
     interval: 1000
   database-access-type: jpa
+  queue-properties:
+    exchange: scrapper
+    queue: scrapper
+    key: scrapper
+    dlx: scrapper
+
+github-token: ${GITHUB_TOKEN}
+
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -14,7 +24,6 @@ logging:
   level:
     org:
       slf4j: DEBUG
-github-token: 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
 
 spring:
   datasource:

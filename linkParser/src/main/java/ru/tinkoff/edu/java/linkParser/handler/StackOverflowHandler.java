@@ -1,7 +1,7 @@
 package ru.tinkoff.edu.java.linkParser.handler;
 
-import ru.tinkoff.edu.java.linkParser.link.StackOverflowParsedLink;
 import ru.tinkoff.edu.java.linkParser.link.ParsedLink;
+import ru.tinkoff.edu.java.linkParser.link.StackOverflowParsedLink;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
